@@ -14,7 +14,7 @@ export default function SkeletonCard() {
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2">
             <Skeleton className="h-5 w-5 rounded-full" />
-            <div className="w-20 h-3 rounded-full bg-muted">
+            <div className="w-20 h-2.5 rounded-full bg-muted">
               <div className="h-full w-3/4 rounded-full bg-primary" />
             </div>
           </div>

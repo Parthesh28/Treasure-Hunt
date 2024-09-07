@@ -26,19 +26,14 @@ export function usePostQuestionMutation() {
 }
 
 export function useLoginMutation() {
-  // const queryClient = useQueryClient();
-
   return useMutation({
-    mutationKey: ["login"],
+    mutationKey: ["loginMutation"],
     mutationFn: async (data) => {
       return (
         await axios.post(`${API_URL}/auth/login`, data, {
           headers: { "Content-Type": "application/json" },
         })
       ).data;
-    },
-    onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
     },
   });
 }

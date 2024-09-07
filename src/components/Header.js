@@ -1,9 +1,9 @@
 import { ClockIcon, FuelIcon } from "@/icons";
 import Countdown from "react-countdown";
 import React from "react";
-import { Martian_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 
-const timeFont = Martian_Mono({
+const timeFont = JetBrains_Mono({
   weight: "500",
   subsets: ["latin"],
   display: "swap",
@@ -25,11 +25,7 @@ function Header({ time, fuel }) {
         <div className="flex items-center gap-2">
           <ClockIcon className="w-5 h-5 text-card-foreground" />
           <span className="text-card-foreground font-medium">
-            <Countdown
-              date={Date.now() + 20000}
-              renderer={dateRenderer}
-              key={time}
-            />
+            <Countdown date={Date.now() + 20000} renderer={dateRenderer} key={time} />
           </span>
         </div>
       </div>
@@ -37,10 +33,7 @@ function Header({ time, fuel }) {
         <div className="flex items-center gap-2">
           <FuelIcon className="w-5 h-5 text-card-foreground" />
           <div className="w-20 h-2.5 rounded-full bg-muted">
-            <div
-              className={`h-full rounded-full bg-primary`}
-              style={{ width: `${fuel}%` }}
-            />
+            <div className={`h-full rounded-full bg-primary`} style={{ width: `${fuel}%` }} />
           </div>
         </div>
       </div>

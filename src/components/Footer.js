@@ -1,16 +1,9 @@
 import React from "react";
-import { Button } from "./ui/button";
-import { TrophyIcon, MapIcon, CircleHelpIcon } from "@/icons";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import Image from "next/image";
+import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import { TrophyIcon, MapIcon, CircleHelpIcon } from "@/icons";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 function Footer({ mapHidden }) {
   const router = useRouter();
@@ -22,13 +15,7 @@ function Footer({ mapHidden }) {
         <CircleHelpIcon className="w-5 h-5" />
         <span className="sr-only">Help</span>
       </Button>
-      <Button
-        variant="outline"
-        className="flex-1 rounded-full"
-        onClick={() => {
-          router.push("/leaderboard");
-        }}
-      >
+      <Button variant="outline" className="flex-1 rounded-full" onClick={() => { router.push("/leaderboard"); }}>
         <TrophyIcon className="w-5 h-5" />
         <span className="sr-only">Leaderboard</span>
       </Button>
@@ -50,14 +37,7 @@ function Map() {
           <DialogTitle>Map</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <Image
-          src="/map.jpg"
-          alt="Map of the spacerun"
-          width={0}
-          height={0}
-          className="w-full h-full rounded-xl object-cover"
-          priority={true}
-        />
+        <Image src="/map.jpg" alt="Map of the spacerun" width={0} height={0} className="w-full h-full rounded-xl object-cover" priority={true} />
       </DialogContent>
     </Dialog>
   );

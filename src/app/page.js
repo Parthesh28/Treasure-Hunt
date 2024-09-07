@@ -1,42 +1,23 @@
 "use client";
 
-import Game from "./game";
-import Login from "./login";
-import { useEffect, useState } from "react";
-
-import { Toast } from "@capacitor/toast";
-import { Haptics } from "@capacitor/haptics";
-import { CapacitorHttp } from "@capacitor/core";
-import { Preferences } from "@capacitor/preferences";
-import { useLoginMutation } from "@/services/mutations";
+import React from "react";
+import { Game, Login } from "../components";
+import { SkeletonCard } from "@/components";
+import { useLoginQuery } from "@/services/queries";
 
 export default function Page() {
-  const [animate, setAnimate] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
 
-  const loginMutation = useLoginMutation();
+  const { isPending, isSuccess, data } = useLoginQuery();
 
-  useEffect(() => {
-    async function checkLoggedIn() {
-      const { value } = await Preferences.get({ key: "token" });
-      setLoggedIn(!!value);
-    }
-    checkLoggedIn();
-  }, []);
-
-  async function handleLogin(otp) {
-    const mutationResult = await loginMutation.mutateAsync({ otp });
-
-    console.log(mutationResult);
+  if (isPending) {
+    return <SkeletonCard />;
   }
 
-  return (
-    <>
-      {loggedIn ? (
-        <Game />
-      ) : (
-        <Login handleLogin={handleLogin} animation={{ animate, setAnimate }} />
-      )}
-    </>
-  );
+  if (isSuccess && !data) {
+    return <Login />;
+  }
+
+  // error states maybe (not in db)
+
+  return <Game />;
 }

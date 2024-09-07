@@ -20,3 +20,14 @@ export function useGetQuestionQuery() {
     refetchOnWindowFocus: "always",
   });
 }
+
+export function useLoginQuery() {
+  return useQuery({
+    queryKey: ["loginQuery"],
+    queryFn: async () => {
+      return (
+        await Preferences.get({ key: "token" })
+      ).value;
+    },
+  });
+}
