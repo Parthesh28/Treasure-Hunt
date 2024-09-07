@@ -10,6 +10,7 @@
     "android": "npx cap sync && npm run build && npx cap sync && npx cap open android"
   },
   "dependencies": {
+    "@capacitor-community/privacy-screen": "^5.2.1",
     "@capacitor/android": "^6.1.2",
     "@capacitor/barcode-scanner": "^1.0.1",
     "@capacitor/core": "^6.1.2",
