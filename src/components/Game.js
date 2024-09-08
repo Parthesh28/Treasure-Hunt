@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Footer, SkeletonCard, Type0, Type12, Type3 } from "@/components";
+import { Header, Footer, SkeletonCard, Type0, Type3, Type1, Type2 } from "@/components";
 import { useGetQuestionQuery } from "@/services/queries";
 
 export default function Game() {
@@ -33,9 +33,9 @@ function getComponent(data) {
     case 0:
       return <Type0 data={data} />;
     case 1:
-      return <Type12 data={data} />;
+      return <Type1 data={data} />;
     case 2:
-      return <Type12 data={data} />;
+      return <Type2 data={data} />;
     case 3:
       return <Type3 data={data} />;
     default:

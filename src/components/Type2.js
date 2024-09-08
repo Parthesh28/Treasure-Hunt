@@ -6,7 +6,7 @@ import { usePostQuestionMutation } from "@/services/mutations";
 
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
 
-function Type12({ data }) {
+export default function Type2({ data }) {
   const mutation = usePostQuestionMutation();
 
   async function readCode() {
@@ -30,5 +30,3 @@ function Type12({ data }) {
     </>
   );
 }
-
-export default Type12;

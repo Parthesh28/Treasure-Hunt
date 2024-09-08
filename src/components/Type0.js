@@ -41,7 +41,7 @@ function Type0({ data }) {
           <Input placeholder="Answer" value={answer} onChange={(e) => setAnswer(e.target.value.toLowerCase())} />
         </CardContent>
       </Card>
-      <Button className="font-extrabold" onClick={handleSubmit} disabled={!answer}>
+      <Button className="font-bold" onClick={handleSubmit} disabled={!answer}>
         Check
       </Button>
     </>

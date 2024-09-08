@@ -54,7 +54,7 @@ export default function Leaderboard() {
           </div>
         </div>
       </main>
-      <Footer homeButton />
+      <Footer mapHidden />
     </div>
   );
 }
