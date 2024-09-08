@@ -1,11 +1,9 @@
 import axios from "axios";
 import { API_URL } from "@/lib/utils";
 import { Preferences } from "@capacitor/preferences";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export function usePostQuestionMutation() {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationKey: ["postQuestion"],
     mutationFn: async (data) => {
@@ -18,9 +16,6 @@ export function usePostQuestionMutation() {
           },
         })
       ).data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
     },
   });
 }

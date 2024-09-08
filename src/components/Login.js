@@ -14,6 +14,7 @@ import "animate.css";
 
 export default function Login() {
   const [otp, setOtp] = useState("");
+  const [animate, setAnimate] = useState(false);
   const loginMutation = useLoginMutation();
   const queryClient = useQueryClient();
 
@@ -25,6 +26,7 @@ export default function Login() {
       },
       onError: async (error) => {
         setOtp("");
+        setAnimate("true");
         await Haptics.vibrate();
         await Toast.show({ text: error.response.data.message });
       },
@@ -49,7 +51,7 @@ export default function Login() {
           </div>
         </div>
       </header>
-      <main className={"flex-1 flex flex-col items-center justify-center gap-6 px-4 py-8"}>
+      <main className={cn(["flex-1 flex flex-col items-center justify-center gap-6 px-4 py-8 animate__animated", animate && "animate__headShake"])} onAnimationEnd={() => { setAnimate(false) }} >
         <p className="text-2xl font-bold">Enter Access Code</p>
         <InputOTP maxLength={6} onComplete={handleLogin} value={otp} onChange={setOtp}>
           <InputOTPGroup>
