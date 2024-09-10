@@ -5,16 +5,34 @@ import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { usePostQuestionMutation } from "@/services/mutations";
 
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
+import { Toast } from "@capacitor/toast";
+import { Haptics } from "@capacitor/haptics";
+import { NativeAudio } from "@capgo/native-audio";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Type2({ data }) {
+  const queryClient = useQueryClient();
   const mutation = usePostQuestionMutation();
 
   async function readCode() {
-    const result = await CapacitorBarcodeScanner.scanBarcode({
+    const { ScanResult: answer } = await CapacitorBarcodeScanner.scanBarcode({
       hint: CapacitorBarcodeScannerTypeHint.AZTEC,
     });
 
-    await mutation.mutateAsync({ answer: result.ScanResult });
+    // for debugging
+    await Toast.show({ text: `readed code: ${answer}` });
+
+    mutation.mutate({ answer }, {
+      onSuccess: async () => {
+        await NativeAudio.play({ assetId: "right" });
+        await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
+      },
+      onError: async (error) => {
+        await NativeAudio.play({ assetId: "wrong" });
+        await Haptics.vibrate({ duration: 600 });
+        await Toast.show({ text: error.response.data.message });
+      }
+    });
   }
 
   return (

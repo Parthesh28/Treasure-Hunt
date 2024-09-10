@@ -9,13 +9,13 @@ function Footer({ mapHidden }) {
   const router = useRouter();
 
   return (
-    <footer className="flex items-center justify-center gap-4 px-4 py-3 bg-card border-t">
+    <footer className="flex items-center justify-center gap-4 px-4 py-3 bg-transparent border-t border-slate-600">
       {!mapHidden && <Map />}
-      <Button variant="outline" className="flex-1 rounded-full">
+      <Button variant="outline" className="flex-1 rounded-full opacity-60">
         <CircleHelpIcon className="w-5 h-5" />
         <span className="sr-only">Help</span>
       </Button>
-      <Button variant="outline" className="flex-1 rounded-full" onClick={() => { router.push("/leaderboard"); }}>
+      <Button variant="outline" className="flex-1 rounded-full opacity-60" onClick={() => { router.push("/leaderboard"); }}>
         <TrophyIcon className="w-5 h-5" />
         <span className="sr-only">Leaderboard</span>
       </Button>
@@ -27,7 +27,7 @@ function Map() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="flex-1 rounded-full">
+        <Button variant="outline" className="flex-1 rounded-full opacity-60">
           <MapIcon className="w-5 h-5" />
           <span className="sr-only">Map</span>
         </Button>

@@ -2,8 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
-import StarField from "react-starfield";
-import { Cinzel } from "next/font/google";
+import { Special_Elite, IBM_Plex_Mono } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -15,12 +14,20 @@ import { StatusBar } from "@capacitor/status-bar";
 
 import "./globals.css";
 
-const fontHeading = Cinzel({
-  weight: "500",
+const fontHeading = Special_Elite({
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
   variable: "--font-heading",
 });
+
+const fontMono = IBM_Plex_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+});
+
 
 export default function Layout({ children }) {
 
@@ -71,11 +78,10 @@ export default function Layout({ children }) {
 
   return (
     <html lang="en">
-      <body className={cn("antialiased", fontHeading.className)}>
+      <body className={cn("antialiased", fontHeading.className, fontMono.variable)}>
         <QueryClientProvider client={queryClient}>
           {children}
         </QueryClientProvider>
-        <StarField />
       </body>
     </html>
   );

@@ -18,10 +18,11 @@ function Type0({ data }) {
 
   async function handleSubmit() {
     if (!answer) return;
+
     mutation.mutate({ answer }, {
       onSuccess: async () => {
         await NativeAudio.play({ assetId: "right" });
-        queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
+        await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
       },
       onError: async (error) => {
         await NativeAudio.play({ assetId: "wrong" });

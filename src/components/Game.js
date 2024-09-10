@@ -15,10 +15,10 @@ export default function Game() {
   }
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-background">
+    <div className="flex flex-col w-full min-h-screen bg-transparent backdrop-brightness-50">
       <Header fuel={data.fuel} time={data.startTime} />
       <main className="flex-1 flex flex-col items-center justify-center gap-8 px-4 py-8 animate__animated animate__fadeIn">
-        <p className="text-2xl font-bold">
+        <p className="text-2xl font-bold text-white">
           Stage {data.currentState.phase} - Phase {data.currentState.clue}
         </p>
         {getComponent(data)}
