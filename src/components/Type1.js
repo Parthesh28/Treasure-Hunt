@@ -5,8 +5,12 @@ import { usePostQuestionMutation } from "@/services/mutations";
 import { Toast } from "@capacitor/toast";
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
 import { useQueryClient } from "@tanstack/react-query";
+// import useLoadAudio from "@/hooks/useLoadAudio";
+// import { NativeAudio } from "@capgo/native-audio";
+import { Haptics } from "@capacitor/haptics";
 
 export default function Type1({ data }) {
+  // useLoadAudio();
   const queryClient = useQueryClient();
   const mutation = usePostQuestionMutation();
 
@@ -15,20 +19,13 @@ export default function Type1({ data }) {
       hint: CapacitorBarcodeScannerTypeHint.AZTEC,
     });
 
-    // for debugging
-    await Toast.show({ text: `readed code: ${answer}` });
-
     mutation.mutate({ answer }, {
       onSuccess: async () => {
-        await NativeAudio.preload({ assetId: "right", assetPath: "assets/sounds/right.mp3", })
-        await NativeAudio.play({ assetId: "right" });
-        await NativeAudio.unload({ assetId: "right" })
+        // await NativeAudio.play({ assetId: "right" });
         await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
       },
       onError: async (error) => {
-        await NativeAudio.preload({ assetId: "wrong", assetPath: "assets/sounds/wrong.mp3", })
-        await NativeAudio.play({ assetId: "wrong" });
-        await NativeAudio.unload({ assetId: "wrong" })
+        // await NativeAudio.play({ assetId: "wrong" });
         await Haptics.vibrate({ duration: 600 });
         await Toast.show({ text: error.response.data.message });
       }
