@@ -35,7 +35,7 @@ export default function Login() {
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-background">
-      <header className="flex items-center justify-between px-6 py-3 border-b bg-card">
+      <header className="flex items-center justify-between px-6 py-3 border-b bg-transparent">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <span className={cn(["text-card-foreground font-extrabold"])}>

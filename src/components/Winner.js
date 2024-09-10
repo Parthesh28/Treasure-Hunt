@@ -5,7 +5,6 @@ import { TrophyIcon } from '@/icons'
 
 function Winner({ data }) {
   return (
-    //     <div className="flex items-center justify-center h-screen bg-gradient-to-br from-primary to-primary/80">
     <Card className="bg-background p-8 rounded-lg shadow-lg max-w-md w-full">
       <div className="flex flex-col items-center space-y-4">
         <div className="bg-primary rounded-full p-4">
@@ -22,7 +21,6 @@ function Winner({ data }) {
         </Link>
       </div>
     </Card>
-    // </div>
   )
 }
 

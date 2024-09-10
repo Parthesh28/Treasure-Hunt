@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
-import { Special_Elite, IBM_Plex_Mono } from "next/font/google";
+import { Sofadi_One, IBM_Plex_Mono } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -14,7 +14,7 @@ import { StatusBar } from "@capacitor/status-bar";
 
 import "./globals.css";
 
-const fontHeading = Special_Elite({
+const fontHeading = Sofadi_One({
   weight: "400",
   subsets: ["latin"],
   display: "swap",

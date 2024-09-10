@@ -1,6 +1,7 @@
 import { ClockIcon, FuelIcon } from "@/icons";
 import Countdown from "react-countdown";
 import React from "react";
+import { Ship } from "lucide-react";
 
 function Header({ time, fuel }) {
   function dateRenderer({ minutes, seconds }) {
@@ -13,7 +14,7 @@ function Header({ time, fuel }) {
   }
 
   return (
-    <header className="flex items-center justify-between px-6 py-3 border-b border-slate-600 bg-transparent">
+    <header className="flex items-center justify-between px-6 py-3 600 bg-transparent">
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <ClockIcon className="w-5 h-5 text-card-foreground" />
@@ -24,7 +25,7 @@ function Header({ time, fuel }) {
       </div>
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-2">
-          <FuelIcon className="w-5 h-5 text-card-foreground" />
+          <Ship className="w-5 h-5 text-card-foreground text-white" />
           <div className="w-20 h-2.5 rounded-full bg-muted">
             <div className={`h-full rounded-full bg-primary`} style={{ width: `${fuel}%` }} />
           </div>

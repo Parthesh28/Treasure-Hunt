@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { usePostQuestionMutation } from "@/services/mutations";
-
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
 import { Toast } from "@capacitor/toast";
 import { Haptics } from "@capacitor/haptics";
@@ -24,11 +23,15 @@ export default function Type2({ data }) {
 
     mutation.mutate({ answer }, {
       onSuccess: async () => {
+        await NativeAudio.preload({ assetId: "right", assetPath: "assets/sounds/right.mp3", })
         await NativeAudio.play({ assetId: "right" });
+        await NativeAudio.unload({ assetId: "right" })
         await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
       },
       onError: async (error) => {
+        await NativeAudio.preload({ assetId: "wrong", assetPath: "assets/sounds/wrong.mp3", })
         await NativeAudio.play({ assetId: "wrong" });
+        await NativeAudio.unload({ assetId: "wrong" })
         await Haptics.vibrate({ duration: 600 });
         await Toast.show({ text: error.response.data.message });
       }
