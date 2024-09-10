@@ -53,13 +53,24 @@ body {
   -webkit-user-select: none;
   background-image: url("../../public/bg.jpg");
   background-position: center;
-  backdrop-filter: blur(15px) brightness(65%);
+  background-size: cover;
+  backdrop-filter: blur(10px) brightness(65%);
 }
 
 .react-transform-wrapper {
   border-radius: calc(var(--radius) + 4px);
 }
 
-.font-ibm {
+.coin-bg {
+  background-image: url("../../public/coin.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
   font-family: var(--font-mono);
 }

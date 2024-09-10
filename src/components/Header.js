@@ -6,7 +6,7 @@ import { Ship } from "lucide-react";
 function Header({ time, fuel }) {
   function dateRenderer({ minutes, seconds }) {
     return (
-      <span className="font-ibm">
+      <span>
         {minutes < 10 ? `0${minutes}` : minutes}:
         {seconds < 10 ? `0${seconds}` : seconds}
       </span>

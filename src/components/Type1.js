@@ -34,15 +34,15 @@ export default function Type1({ data }) {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-6">
-        <div className="bg-secondary rounded-lg p-4 flex flex-col items-center justify-center">
-          <div className="text-2xl font-ibm font-bold">{data.coordinates[0]}</div>
+      <div className="grid grid-cols-3 gap-9 text-amber-600">
+        <div className="coin-bg rounded-lg p-6 w-full">
+          <div className="text-3xl font-bold">{data.coordinates[0]}</div>
         </div>
-        <div className="bg-secondary rounded-lg p-4 flex flex-col items-center justify-center">
-          <div className="text-2xl font-ibm font-bold">{data.coordinates[1]}</div>
+        <div className="coin-bg rounded-lg p-6">
+          <div className="text-3xl font-bold">{data.coordinates[1]}</div>
         </div>
-        <div className="bg-secondary rounded-lg p-4 flex flex-col items-center justify-center">
-          <div className="text-2xl font-ibm font-bold">{data.coordinates[2]}</div>
+        <div className="coin-bg rounded-lg p-6 ">
+          <div className="text-3xl font-bold">{data.coordinates[2]}</div>
         </div>
       </div>
       <h1 className="font-bold tracking-wide text-white">Head to this Location</h1>
@@ -50,5 +50,6 @@ export default function Type1({ data }) {
         Scan Code
       </Button>
     </>
+
   );
 }

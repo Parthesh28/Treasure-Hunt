@@ -22,10 +22,12 @@ package-lock.json
 
 # production
 /build
+data.json
 
 # misc
 .DS_Store
 *.pem
+.gitignore
 
 # debug
 npm-debug.log*

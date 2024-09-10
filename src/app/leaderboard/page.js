@@ -4,14 +4,18 @@ import React from "react";
 import { ClockIcon } from "@/icons";
 import { Footer } from "@/components";
 import { Separator } from "@/components/ui/separator";
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Leaderboard() {
+  const router = useRouter()
   return (
-    <div className="flex flex-col w-full min-h-screen bg-background">
+    <div className="flex flex-col w-full min-h-screen bg-transparent">
       <header className="flex items-center justify-between px-6 py-3 border-b bg-transparent">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-card-foreground font-extrabold text-lg">
+              <ArrowLeft className="text-white cursor-pointer" onClick={()=>{router.push('/')}}/>
+            <span className="text-card-foreground font-extrabold text-lg text-white">
               Leaderboard
             </span>
           </div>
@@ -22,15 +26,15 @@ export default function Leaderboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="bg-muted rounded-full w-8 h-8 flex items-center justify-center">
-                <span className="text-sm font-medium text-muted-foreground">
+                <span className="text-sm font-medium">
                   1
                 </span>
               </div>
               <div>
-                <div className="font-medium">John Doe</div>
+                <div className="font-medium text-white">John Doe</div>
               </div>
             </div>
-            <div className="flex text-lg font-bold gap-2">
+            <div className="flex text-lg font-bold gap-2 text-white">
               <span>10:25</span>
               <ClockIcon />
             </div>
@@ -39,15 +43,15 @@ export default function Leaderboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="bg-muted rounded-full w-8 h-8 flex items-center justify-center">
-                <span className="text-sm font-medium text-muted-foreground">
+                <span className="text-sm font-medium">
                   2
                 </span>
               </div>
               <div>
-                <div className="font-medium">Jane Smith</div>
+                <div className="font-medium text-white">Jane Smith</div>
               </div>
             </div>
-            <div className="flex text-lg font-bold gap-2">
+            <div className="flex text-lg font-bold gap-2 text-white">
               <span>10:25</span>
               <ClockIcon />
             </div>

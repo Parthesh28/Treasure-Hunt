@@ -34,11 +34,11 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-background">
+    <div className="flex flex-col w-full min-h-screen bg-transparent">
       <header className="flex items-center justify-between px-6 py-3 border-b bg-transparent">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className={cn(["text-card-foreground font-extrabold"])}>
+            <span className={cn(["text-card-foreground font-extrabold text-white"])}>
               SpaceRun
             </span>
           </div>
@@ -46,15 +46,15 @@ export default function Login() {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <a href="https://instagram.com/codexsfit" target="_blank" className="text-card-foreground text-xs font-bold">
-              <InstagramIcon color="hsl(var(--card-foreground))" size={22} strokeWidth={2.2} />
+              <InstagramIcon color="white" size={22} strokeWidth={2.2} />
             </a>
           </div>
         </div>
       </header>
       <main className={cn(["flex-1 flex flex-col items-center justify-center gap-6 px-4 py-8 animate__animated", animate && "animate__headShake"])} onAnimationEnd={() => { setAnimate(false) }} >
-        <p className="text-2xl font-bold">Enter Access Code</p>
+        <p className="text-2xl font-bold text-white">Enter Access Code</p>
         <InputOTP maxLength={6} onComplete={handleLogin} value={otp} onChange={setOtp}>
-          <InputOTPGroup>
+          <InputOTPGroup className="text-white">
             <InputOTPSlot index={0} />
             <InputOTPSlot index={1} />
             <InputOTPSlot index={2} />
