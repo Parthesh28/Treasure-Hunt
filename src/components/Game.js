@@ -1,6 +1,6 @@
 import React from "react";
-import { Header, Footer, SkeletonCard, Type0, Type3, Type1, Type2 } from "@/components";
 import { useGetQuestionQuery } from "@/services/queries";
+import { Header, Footer, SkeletonCard, Type0, Type3, Type1, Type2 } from "@/components";
 
 export default function Game() {
   const { isPending, isError, data } = useGetQuestionQuery();

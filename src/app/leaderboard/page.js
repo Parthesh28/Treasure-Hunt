@@ -3,9 +3,9 @@
 import React from "react";
 import { ClockIcon } from "@/icons";
 import { Footer } from "@/components";
-import { Separator } from "@/components/ui/separator";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Separator } from "@/components/ui/separator";
 
 export default function Leaderboard() {
   const router = useRouter()

@@ -1,13 +1,12 @@
-import React, { useState } from "react";
 import Image from "next/image";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import React, { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePostQuestionMutation } from "@/services/mutations";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-import { Haptics } from "@capacitor/haptics";
 import { Toast } from "@capacitor/toast";
+import { Haptics } from "@capacitor/haptics";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 function Type3({ data }) {
@@ -38,7 +37,7 @@ function Type3({ data }) {
       </TransformWrapper>
       <div className="mx-auto flex w-80">
         <Input placeholder="Answer" className="bg-transparent text-white" value={answer} onChange={(e) => setAnswer(e.target.value.toLowerCase())} />
-         </div>
+      </div>
       <Button className="font-bold" onClick={handleSubmit} disabled={!answer}>
         Check
       </Button>

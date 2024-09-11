@@ -1,7 +1,7 @@
-import { ClockIcon, FuelIcon } from "@/icons";
-import Countdown from "react-countdown";
 import React from "react";
+import { ClockIcon } from "@/icons";
 import { Ship } from "lucide-react";
+import Countdown from "react-countdown";
 
 function Header({ time, fuel }) {
   function dateRenderer({ minutes, seconds }) {

@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
-import { Grandstander, Special_Elite} from "next/font/google";
+import { Grandstander, Special_Elite } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -46,6 +46,20 @@ export default function Layout({ children }) {
         isUrl: false
       });
 
+      await NativeAudio.preload({
+        assetId: "right",
+        assetPath: "assets/sounds/right.mp3",
+        audioChannelNum: 1,
+        isUrl: false
+      });
+
+      await NativeAudio.preload({
+        assetId: "wrong",
+        assetPath: "assets/sounds/wrong.mp3",
+        audioChannelNum: 1,
+        isUrl: false
+      });
+
       await NativeAudio.loop({
         assetId: "music"
       })
@@ -68,6 +82,8 @@ export default function Layout({ children }) {
       return async () => {
         await App.removeAllListeners();
         await NativeAudio.unload({ assetId: "music" });
+        await NativeAudio.unload({ assetId: "right" });
+        await NativeAudio.unload({ assetId: "wrong" });
       }
     }
 

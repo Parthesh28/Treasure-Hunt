@@ -6,8 +6,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useLoginMutation } from "@/services/mutations";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
-import { Haptics } from "@capacitor/haptics";
 import { Toast } from "@capacitor/toast";
+import { Haptics } from "@capacitor/haptics";
 import { Preferences } from "@capacitor/preferences";
 
 import "animate.css";
