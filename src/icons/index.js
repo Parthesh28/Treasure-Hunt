@@ -106,11 +106,9 @@ function FrownIcon(props) {
   )
 }
 
-
 module.exports = {
   CircleHelpIcon,
   ClockIcon,
-  FuelIcon,
   MapIcon,
   TrophyIcon,
   FrownIcon

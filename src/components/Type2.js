@@ -1,35 +1,20 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { useQueryClient } from "@tanstack/react-query";
-import { usePostQuestionMutation } from "@/services/mutations";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
-import { Toast } from "@capacitor/toast";
-import { Haptics } from "@capacitor/haptics";
-import { NativeAudio } from "@capgo/native-audio";
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
 
-export default function Type2({ data }) {
-  const queryClient = useQueryClient();
-  const mutation = usePostQuestionMutation();
-
+export default function Type2({ data, handleSubmit }) {
   async function readCode() {
     const { ScanResult: answer } = await CapacitorBarcodeScanner.scanBarcode({
       hint: CapacitorBarcodeScannerTypeHint.AZTEC,
     });
 
-    mutation.mutate({ answer }, {
-      onSuccess: async () => {
-        await NativeAudio.play({ assetId: "right" });
-        await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
-      },
-      onError: async (error) => {
-        await NativeAudio.play({ assetId: "wrong" });
-        await Haptics.vibrate({ duration: 600 });
-        await Toast.show({ text: error.response.data.message });
-      }
-    });
+    if (!answer) return;
+
+    // todo: @Type1
+    await handleSubmit(answer);
   }
 
   return (

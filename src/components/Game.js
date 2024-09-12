@@ -1,9 +1,39 @@
-import React from "react";
+import { cn } from "@/lib/utils";
+import React, { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useGetQuestionQuery } from "@/services/queries";
+import { usePostQuestionMutation } from "@/services/mutations";
 import { Header, Footer, SkeletonCard, Type0, Type3, Type1, Type2 } from "@/components";
 
+import { Toast } from "@capacitor/toast";
+import { Haptics } from "@capacitor/haptics";
+import { NativeAudio } from "@capgo/native-audio";
+
 export default function Game() {
+  const [animate, setAnimate] = useState("animate__fadeInRight");
   const { isPending, isError, data } = useGetQuestionQuery();
+
+  const queryClient = useQueryClient();
+  const mutation = usePostQuestionMutation();
+
+  async function handleSubmit(answer) {
+    if (!answer) return;
+
+    mutation.mutate({ answer }, {
+      onSuccess: async () => {
+        await NativeAudio.play({ assetId: "right" });
+        setAnimate("animate__fadeOutLeft");
+        await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
+        setAnimate("animate__fadeInRight");
+      },
+      onError: async (error) => {
+        setAnimate("animate__shakeX");
+        await NativeAudio.play({ assetId: "wrong" });
+        await Haptics.vibrate({ duration: 600 });
+        await Toast.show({ text: error.response.data.message });
+      }
+    });
+  }
 
   if (isPending) {
     return <SkeletonCard />;
@@ -17,27 +47,27 @@ export default function Game() {
   return (
     <div className="flex flex-col w-full min-h-screen bg-transparent backdrop-brightness-50">
       <Header fuel={data.fuel} time={data.startTime} />
-      <main className="flex-1 flex flex-col items-center justify-center gap-8 px-4 py-8 animate__animated animate__fadeIn">
+      <main className={cn("flex-1 flex flex-col items-center justify-center gap-8 px-4 py-8 animate__animated animate__fast", animate)} onAnimationEnd={() => setAnimate("")}>
         <p className="text-3xl font-bold text-white">
           Stage {data.currentState.phase} - Phase {data.currentState.clue}
         </p>
-        {getComponent(data)}
+        {getComponent({ data, handleSubmit })}
       </main>
       <Footer />
     </div>
   );
 }
 
-function getComponent(data) {
-  switch (data.type) {
+function getComponent(props) {
+  switch (props.data.type) {
     case 0:
-      return <Type0 data={data} />;
+      return <Type0 {...props} />;
     case 1:
-      return <Type1 data={data} />;
+      return <Type1 {...props} />;
     case 2:
-      return <Type2 data={data} />;
+      return <Type2 {...props} />;
     case 3:
-      return <Type3 data={data} />;
+      return <Type3 {...props} />;
     default:
       return <></>; // maybe somthing better default component
   }
