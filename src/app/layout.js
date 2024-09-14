@@ -30,7 +30,6 @@ const fontMono = Special_Elite({
 
 
 export default function Layout({ children }) {
-
   const router = useRouter();
 
   useEffect(() => {
@@ -66,7 +65,7 @@ export default function Layout({ children }) {
 
       // status bar color matching
       await StatusBar.setBackgroundColor({
-        color: "#0c0a09", // from globals.css
+        color: "#00ff00",
       });
 
       // back button disable

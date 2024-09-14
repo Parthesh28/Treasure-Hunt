@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetQuestionQuery } from "@/services/queries";
 import { usePostQuestionMutation } from "@/services/mutations";
-import { Header, Footer, SkeletonCard, Type0, Type3, Type1, Type2 } from "@/components";
+import { Header, Footer, SkeletonCard, Type0, Type1, Type2, Type3, Winner, Loser } from "@/components";
 
 import { Toast } from "@capacitor/toast";
 import { Haptics } from "@capacitor/haptics";
@@ -11,7 +11,7 @@ import { NativeAudio } from "@capgo/native-audio";
 
 export default function Game() {
   const [animate, setAnimate] = useState("animate__fadeInRight");
-  const { isPending, isError, data } = useGetQuestionQuery();
+  const { isPending, isError, data, error } = useGetQuestionQuery();
 
   const queryClient = useQueryClient();
   const mutation = usePostQuestionMutation();
@@ -21,14 +21,14 @@ export default function Game() {
 
     mutation.mutate({ answer }, {
       onSuccess: async () => {
-        await NativeAudio.play({ assetId: "right" });
+        if (Capacitor.getPlatform() != "web") await NativeAudio.play({ assetId: "right" });
         setAnimate("animate__fadeOutLeft");
         await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
         setAnimate("animate__fadeInRight");
       },
       onError: async (error) => {
         setAnimate("animate__shakeX");
-        await NativeAudio.play({ assetId: "wrong" });
+        if (Capacitor.getPlatform() != "web") await NativeAudio.play({ assetId: "wrong" });
         await Haptics.vibrate({ duration: 600 });
         await Toast.show({ text: error.response.data.message });
       }
@@ -39,9 +39,15 @@ export default function Game() {
     return <SkeletonCard />;
   }
 
-  // handle this
   if (isError) {
-    return <></>;
+    switch (error.response.data.type) {
+      case 4:
+        return <Winner />;
+      case 5:
+        return <Loser />;
+      default:
+        return <></>; // return a error screen with a general message
+    }
   }
 
   return (

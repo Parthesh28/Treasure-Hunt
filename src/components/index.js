@@ -6,6 +6,8 @@ import Type1 from "@/components/Type1";
 import Type2 from "@/components/Type2";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Winner from "@/components/Winner";
+import Loser from "@/components/Loser";
 import SkeletonCard from '@/components/SkeletonCard';
 
-export { Header, Footer, SkeletonCard, Type0, Type1, Type2, Type3, Game, Login }
+export { Header, Footer, SkeletonCard, Type0, Type1, Type2, Type3, Game, Login, Winner, Loser }

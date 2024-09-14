@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-:root {
+  :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 5%;
 
@@ -19,7 +19,7 @@
     --secondary: 0 0% 96%;
     --secondary-foreground: 0 0% 5%;
 
-    --muted: 0 0% 96%;
+    --muted: 0 0% 50%;
     --muted-foreground: 0 0% 45%;
 
     --accent: 0 0% 96%;

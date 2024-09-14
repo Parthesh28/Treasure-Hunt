@@ -18,6 +18,7 @@ export function useGetQuestionQuery() {
       ).data;
     },
     refetchOnWindowFocus: "always",
+    retry: false
   });
 }
 

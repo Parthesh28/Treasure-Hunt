@@ -2,8 +2,11 @@ import React from "react";
 import { ClockIcon } from "@/icons";
 import { Ship } from "lucide-react";
 import Countdown from "react-countdown";
+import { useQueryClient } from "@tanstack/react-query";
 
 function Header({ time, fuel }) {
+  const queryClient = useQueryClient();
+
   function dateRenderer({ minutes, seconds }) {
     return (
       <span>
@@ -13,13 +16,17 @@ function Header({ time, fuel }) {
     );
   }
 
+  async function handleCounterComplete() {
+    await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
+  }
+
   return (
     <header className="flex items-center justify-between px-6 py-3 600 bg-transparent">
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <ClockIcon className="w-5 h-5 text-card-foreground" />
           <span className="text-card-foreground font-medium text-white">
-            <Countdown date={Date.now() + 20000} renderer={dateRenderer} key={time} />
+            <Countdown date={time + 1820000} renderer={dateRenderer} onComplete={handleCounterComplete} key={time} />
           </span>
         </div>
       </div>
@@ -27,7 +34,7 @@ function Header({ time, fuel }) {
         <div className="flex items-center gap-2">
           <Ship className="w-5 h-5 text-card-foreground text-white" />
           <div className="w-20 h-2.5 rounded-full bg-muted">
-            <div className={`h-full rounded-full bg-primary`} style={{ width: `${fuel}%` }} />
+            <div className={`h-full rounded-full bg-secondary`} style={{ width: `${fuel}%` }} />
           </div>
         </div>
       </div>
