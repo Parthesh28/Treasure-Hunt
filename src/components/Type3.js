@@ -7,7 +7,6 @@ import { usePostQuestionMutation } from "@/services/mutations";
 
 import { Toast } from "@capacitor/toast";
 import { Haptics } from "@capacitor/haptics";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 function Type3({ data }) {
   const queryClient = useQueryClient();
@@ -30,11 +29,7 @@ function Type3({ data }) {
 
   return (
     <>
-      <TransformWrapper maxScale={2} doubleClick={{ mode: "toggle" }}>
-        <TransformComponent>
-          <Image src="https://picsum.photos/500/500" width="300" height="300" alt="Clue" className="rounded-xl aspect-square object-cover" priority={true} />
-        </TransformComponent>
-      </TransformWrapper>
+      <Image src="https://picsum.photos/500/500" width="300" height="300" alt="Clue" className="rounded-xl aspect-square object-cover" priority={true} />
       <div className="mx-auto flex w-80">
         <Input placeholder="Answer" className="bg-transparent text-white" value={answer} onChange={(e) => setAnswer(e.target.value.toLowerCase())} />
       </div>

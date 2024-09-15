@@ -1,7 +1,6 @@
 import React from "react";
-import Image from "next/image";
 import { Button } from "./ui/button";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+import { CarouselUI } from "../components";
 
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
 
@@ -19,11 +18,7 @@ export default function Type2({ data, handleSubmit }) {
 
   return (
     <>
-      <TransformWrapper maxScale={2} doubleClick={{ mode: "toggle" }}>
-        <TransformComponent>
-          <Image src={data.image} width="300" height="300" alt="Clue of the spacerun game" className="rounded-xl aspect-square object-cover" priority={true} />
-        </TransformComponent>
-      </TransformWrapper>
+      <CarouselUI images={data.images} />
       <Button onClick={readCode} className="font-bold">
         Scan Code
       </Button>

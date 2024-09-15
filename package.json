@@ -20,29 +20,29 @@
     "@capacitor/preferences": "^6.0.2",
     "@capacitor/status-bar": "^6.0.1",
     "@capacitor/toast": "^6.0.2",
-    "@capgo/native-audio": "^6.4.17",
+    "@capgo/native-audio": "^6.4.18",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
-    "@tanstack/react-query": "^5.55.4",
+    "@tanstack/react-query": "^5.56.2",
     "animate.css": "^4.1.1",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.3.0",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.436.0",
     "next": "14.2.6",
     "react": "^18.3.1",
     "react-countdown": "^2.3.6",
     "react-dom": "^18.3.1",
-    "react-zoom-pan-pinch": "^3.6.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^6.1.2",
-    "postcss": "^8.4.45",
-    "tailwindcss": "^3.4.10"
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.11"
   }
 }
