@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ClockIcon } from "@/icons";
 import { Ship } from "lucide-react";
 import Countdown from "react-countdown";
 import { useQueryClient } from "@tanstack/react-query";
 
 function Header({ time, fuel }) {
+  const [newFuel, setFuel] = useState(fuel);
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      // per 5 second deduct 0.125 (5/40)
+      setFuel(async (oldFuel) => {
+        if (oldFuel - 0.125 <= 0) {
+          await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
+          return 0;
+        }
+        return oldFuel - 0.125;
+      });
+    }, 5000);
+
+    return () => {
+      clearInterval(id);
+    }
+  }, [])
 
   function dateRenderer({ minutes, seconds }) {
     return (
@@ -34,7 +52,7 @@ function Header({ time, fuel }) {
         <div className="flex items-center gap-2">
           <Ship className="w-5 h-5 text-card-foreground text-white" />
           <div className="w-20 h-2.5 rounded-full bg-muted">
-            <div className={`h-full rounded-full bg-secondary`} style={{ width: `${fuel}%` }} />
+            <div className={`h-full rounded-full bg-secondary`} style={{ width: `${newFuel}%` }} />
           </div>
         </div>
       </div>
