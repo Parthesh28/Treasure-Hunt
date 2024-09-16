@@ -7,7 +7,7 @@ function Winner({ data }) {
   return (
     <div className="flex flex-col w-full min-h-screen bg-transparent backdrop-brightness-50">
       <main className="flex-1 flex flex-col items-center justify-center gap-8 px-4 py-8 animate__animated animate__fast">
-        <Card className="bg-transparent p-8 rounded-lg shadow-lg max-w-md w-full">
+        <Card className="bg-slate-600 bg-opacity-25 backdrop-blur-3xl p-8 rounded-lg shadow-lg max-w-md w-full">
           <div className="flex flex-col items-center space-y-4">
             <div className="bg-primary rounded-full p-4">
               <Award />

@@ -19,5 +19,5 @@ export default function Page() {
 
   // error states maybe (not in db)
 
-  return <Game />;
+  return <Game/>;
 }

@@ -26,17 +26,11 @@ export default function Leaderboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="bg-muted rounded-full w-8 h-8 flex items-center justify-center">
-                <span className="text-sm font-medium">
-                  1
-                </span>
+              
               </div>
               <div>
                 <div className="font-medium text-white">John Doe</div>
               </div>
-            </div>
-            <div className="flex text-lg font-bold gap-2 text-white">
-              <span>10:25</span>
-              <ClockIcon />
             </div>
           </div>
           <Separator />

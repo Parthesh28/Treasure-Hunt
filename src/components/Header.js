@@ -3,6 +3,17 @@ import { ClockIcon } from "@/icons";
 import { Ship } from "lucide-react";
 import Countdown from "react-countdown";
 import { useQueryClient } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
 
 function Header({ time, fuel }) {
   const [newFuel, setFuel] = useState(fuel);
@@ -11,15 +22,8 @@ function Header({ time, fuel }) {
   useEffect(() => {
     const id = setInterval(() => {
       // per 5 second deduct 0.125 (5/40)
-      setFuel(async (oldFuel) => {
-        if (oldFuel - 0.125 <= 0) {
-          await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
-          return 0;
-        }
-        return oldFuel - 0.125;
-      });
+      setFuel((oldFuel) => oldFuel - 0.125);
     }, 5000);
-
     return () => {
       clearInterval(id);
     }
@@ -32,6 +36,18 @@ function Header({ time, fuel }) {
         {seconds < 10 ? `0${seconds}` : seconds}
       </span>
     );
+  }
+
+  async function readCoupon() {
+    const { ScanResult: answer } = await CapacitorBarcodeScanner.scanBarcode({
+      hint: CapacitorBarcodeScannerTypeHint.AZTEC,
+    });
+
+    if (!answer) return;
+
+    // todo: @Type1
+    // await handleSubmit(answer);
+
   }
 
   async function handleCounterComplete() {
@@ -48,14 +64,30 @@ function Header({ time, fuel }) {
           </span>
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <div className="flex items-center gap-2">
-          <Ship className="w-5 h-5 text-card-foreground text-white" />
-          <div className="w-20 h-2.5 rounded-full bg-muted">
-            <div className={`h-full rounded-full bg-secondary`} style={{ width: `${newFuel}%` }} />
+     
+      <Dialog>
+        <DialogTrigger asChild>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
+              <Ship className="w-5 h-5 text-card-foreground text-white" />
+              <div className="w-20 h-2.5 rounded-full bg-muted">
+                <div className={`h-full rounded-full bg-secondary`} style={{ width: `${newFuel}%` }} />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </DialogTrigger>
+        <DialogContent className=" rounded-xl bg-gray-300 bg-opacity-95">
+          <DialogHeader>
+            <DialogTitle>Restore Ship Health</DialogTitle>
+            <DialogDescription>
+              Scan the coupon code to revive the ship before it's too late!!!
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button onClick={readCoupon} className="font-bold">Scan Coupon</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 }

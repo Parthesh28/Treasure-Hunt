@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetQuestionQuery } from "@/services/queries";
 import { usePostQuestionMutation } from "@/services/mutations";
-import { Header, Footer, SkeletonCard, Type0, Type1, Type2, Type3, Winner, Loser } from "@/components";
+import { Header, Footer, SkeletonCard, Type0, Type1, Type2, Type3, Winner, Loser, Error} from "@/components";
 
 import { Toast } from "@capacitor/toast";
 import { Haptics } from "@capacitor/haptics";
@@ -46,7 +46,7 @@ export default function Game() {
       case 5:
         return <Loser />;
       default:
-        return <></>; // return a error screen with a general message
+        return <Error/>;
     }
   }
 

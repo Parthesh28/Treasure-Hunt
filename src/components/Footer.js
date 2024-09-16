@@ -11,11 +11,11 @@ function Footer({ mapHidden }) {
   return (
     <footer className="flex items-center justify-center gap-4 px-4 py-3 bg-transparent">
       {!mapHidden && <Map />}
-      <Button variant="ghost" className="flex-1 rounded-full">
+      <Button variant="ghost" className="flex-1 rounded-full hover:bg-transparent">
         <CircleHelpIcon className="w-6 h-6" />
         <span className="sr-only">Help</span>
       </Button>
-      <Button variant="ghost" className="flex-1 rounded-full" onClick={() => { router.push("/leaderboard"); }}>
+      <Button variant="ghost" className="flex-1 rounded-full hover:bg-transparent" onClick={() => { router.push("/leaderboard"); }}>
         <TrophyIcon className="w-6 h-6" />
         <span className="sr-only">Leaderboard</span>
       </Button>
@@ -27,7 +27,7 @@ function Map() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="flex-1 rounded-full">
+        <Button variant="ghost" className="flex-1 rounded-full hover:bg-transparent">
           <MapIcon className="w-6 h-6" />
           <span className="sr-only">Map</span>
         </Button>
