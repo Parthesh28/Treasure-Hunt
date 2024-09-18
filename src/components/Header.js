@@ -1,25 +1,29 @@
-import React, { useState, useEffect } from "react";
 import { ClockIcon } from "@/icons";
 import { Ship } from "lucide-react";
 import Countdown from "react-countdown";
-import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import React, { useState, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRestoreHealthMutation } from "@/services/mutations";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+
+import { Toast } from "@capacitor/toast";
+import { Capacitor } from "@capacitor/core";
+import { Haptics } from "@capacitor/haptics";
+import { NativeAudio } from "@capgo/native-audio";
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
 
 function Header({ time, fuel }) {
   const [newFuel, setFuel] = useState(fuel);
-  const queryClient = useQueryClient();
+  const [openModal, setOpenModal] = useState(false);
 
+  const queryClient = useQueryClient();
+  const mutation = useRestoreHealthMutation();
+
+  // todo: when 0 invalidate query
   useEffect(() => {
+    setFuel(fuel);
+
     const id = setInterval(() => {
       // per 5 second deduct 0.125 (5/40)
       setFuel((oldFuel) => oldFuel - 0.125);
@@ -27,7 +31,7 @@ function Header({ time, fuel }) {
     return () => {
       clearInterval(id);
     }
-  }, [])
+  }, [fuel])
 
   function dateRenderer({ minutes, seconds }) {
     return (
@@ -39,15 +43,26 @@ function Header({ time, fuel }) {
   }
 
   async function readCoupon() {
-    const { ScanResult: answer } = await CapacitorBarcodeScanner.scanBarcode({
+    const { ScanResult: coupon } = await CapacitorBarcodeScanner.scanBarcode({
       hint: CapacitorBarcodeScannerTypeHint.AZTEC,
     });
 
-    if (!answer) return;
+    if (!coupon) return;
 
-    // todo: @Type1
-    // await handleSubmit(answer);
-
+    mutation.mutate({ coupon }, {
+      onSuccess: async () => {
+        if (Capacitor.getPlatform() != "web") await NativeAudio.play({ assetId: "right" });
+        await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
+        await Toast.show({ text: "Ship Restoration Successful" });
+        setOpenModal(false);
+      },
+      onError: async (error) => {
+        if (Capacitor.getPlatform() != "web") await NativeAudio.play({ assetId: "wrong" });
+        await Haptics.vibrate({ duration: 600 });
+        await Toast.show({ text: error.response.data.message });
+        setOpenModal(false);
+      },
+    });
   }
 
   async function handleCounterComplete() {
@@ -64,8 +79,8 @@ function Header({ time, fuel }) {
           </span>
         </div>
       </div>
-     
-      <Dialog>
+
+      <Dialog open={openModal} onOpenChange={setOpenModal}>
         <DialogTrigger asChild>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2">
@@ -80,7 +95,7 @@ function Header({ time, fuel }) {
           <DialogHeader>
             <DialogTitle>Restore Ship Health</DialogTitle>
             <DialogDescription>
-              Scan the coupon code to revive the ship before it's too late!!!
+              Scan the coupon code to revive the Ship before it's too late!!!
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

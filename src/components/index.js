@@ -8,7 +8,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Winner from "@/components/Winner";
 import Loser from "@/components/Loser";
+import Error from "@/components/Error";
 import CarouselUI from "@/components/CarouselUI";
 import SkeletonCard from '@/components/SkeletonCard';
 
-export { Header, Footer, SkeletonCard, Type0, Type1, Type2, Type3, Game, Login, Winner, Loser, CarouselUI }
+export { Header, Footer, SkeletonCard, Type0, Type1, Type2, Type3, Game, Login, Winner, Loser, CarouselUI, Error }

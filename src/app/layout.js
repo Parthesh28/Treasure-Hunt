@@ -1,9 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Grandstander, Special_Elite } from "next/font/google";
-import { useRouter } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { App } from "@capacitor/app";
@@ -30,7 +29,7 @@ const fontMono = Special_Elite({
 
 
 export default function Layout({ children }) {
-  const router = useRouter();
+  const [lastBack, setLastBack] = useState(Date.now());
 
   useEffect(() => {
     async function initialSetup() {
@@ -65,21 +64,24 @@ export default function Layout({ children }) {
 
       // status bar color matching
       await StatusBar.setBackgroundColor({
-        color: "#00ff00",
+        color: "#265356",
       });
 
       // back button disable
-      App.addListener("backButton", async () => {
-        if (location.pathname == "/leaderboard") {
-          router.push("/");
+      const backButtonListener = await App.addListener("backButton", async (e) => {
+        if (e.canGoBack) {
+          window.history.back();
         } else {
-          await Toast.show("Exiting app will deduct fuel by 10");
-          // api call to deduct
+          if (Date.now() - lastBack < 500) {
+            await App.exitApp();
+          }
+          setLastBack(Date.now());
+          await Toast.show({ text: `Exiting app will deduct damage by 10 ${Date.now() - lastBack}` });
         }
       })
 
       return async () => {
-        await App.removeAllListeners();
+        await backButtonListener.remove();
         await NativeAudio.unload({ assetId: "music" });
         await NativeAudio.unload({ assetId: "right" });
         await NativeAudio.unload({ assetId: "wrong" });
