@@ -51,10 +51,6 @@ body {
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
-  background-image: url("../../public/bg.jpg");
-  background-position: center;
-  background-size: cover;
-  backdrop-filter: blur(10px) brightness(65%);
 }
 
 .react-transform-wrapper {

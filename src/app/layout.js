@@ -12,6 +12,7 @@ import { NativeAudio } from "@capgo/native-audio"
 import { StatusBar } from "@capacitor/status-bar";
 
 import "./globals.css";
+import PirateOceanBackground from "@/components/pirate-ocean-background";
 
 const fontHeading = Grandstander({
   weight: "400",
@@ -96,9 +97,11 @@ export default function Layout({ children }) {
   return (
     <html lang="en">
       <body className={cn("antialiased", fontHeading.className, fontMono.variable)}>
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
+        <PirateOceanBackground>
+          <QueryClientProvider client={queryClient}>
+            {children}
+          </QueryClientProvider>
+        </PirateOceanBackground>
       </body>
     </html>
   );

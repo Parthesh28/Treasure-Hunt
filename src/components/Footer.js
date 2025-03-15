@@ -32,12 +32,12 @@ function Map() {
           <span className="sr-only">Map</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="rounded-xl bg-gray-400 bg-opacity-95">
+      <DialogContent className="rounded-lg bg-gradient-to-br from-[#ffe9c2] to-[#d4b483]">
         <DialogHeader>
           <DialogTitle className="text-gray-800">Map</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <Image src="/map.jpg" alt="Map of the spacerun" width={0} height={0} className="w-full h-full rounded-md object-cover" priority={true} />
+        <Image src="/map.png" alt="Map of the spacerun" width={0} height={0} className="w-full h-full rounded-md object-cover" priority={true} />
       </DialogContent>
     </Dialog>
   );

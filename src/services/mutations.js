@@ -25,7 +25,7 @@ export function useLoginMutation() {
     mutationKey: ["loginMutation"],
     mutationFn: async (data) => {
       return (
-        await axios.post(`${API_URL}/auth/login`, data, {
+        await axios.post(`${API_URL}/login`, data, {
           headers: { "Content-Type": "application/json" },
         })
       ).data;
@@ -39,7 +39,7 @@ export function useRestoreHealthMutation() {
     mutationFn: async (data) => {
       const { value } = await Preferences.get({ key: "token" });
       return (
-        await axios.post(`${API_URL}/restore`, data, {
+        await axios.post(`${API_URL}/refuel`, data, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${value}`,

@@ -50,13 +50,11 @@ export default function Game() {
     }
   }
 
+
   return (
-    <div className="flex flex-col w-full min-h-screen bg-transparent backdrop-brightness-50">
-      <Header fuel={data.fuel} time={data.startTime} />
-      <main className={cn("flex-1 flex flex-col items-center justify-center gap-8 px-4 py-8 animate__animated animate__fast", animate)} onAnimationEnd={() => setAnimate("")}>
-        <p className="text-3xl font-bold text-white">
-          Stage {data.currentState.phase} - Phase {data.currentState.clue}
-        </p>
+    <div className="flex flex-col w-full min-h-screen">
+      <Header health={data.health} time={data.startTime} />
+      <main className={cn("flex-1 flex flex-col items-center justify-center w-full animate__animated animate__fast", animate)} onAnimationEnd={() => setAnimate("")}>
         {getComponent({ data, handleSubmit })}
       </main>
       <Footer />
