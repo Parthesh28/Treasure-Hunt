@@ -19,20 +19,39 @@ function CarouselUI({ images = [] }) {
   }
 
   return (
-    <Carousel className="w-full h-full max-w-xs" setApi={setApi}>
-      <CarouselContent className='h-[1060] w-[750]'>
-        {images.map((image, index) => (
-          <CarouselItem key={index}>
-            <Image src={image} width="750" height="1060" alt="Clue of the spacerun game" className="rounded-lg aspect-[1/1.414] object-cover" priority={true} />
-          </CarouselItem>
-        ))}
-      </CarouselContent >
-      <div className="flex gap-2 mt-4 justify-center">
-        {Array.from({ length: images.length }).map((_, index) => (
-          <div className={`w-2 h-2 rounded-full cursor-pointer ${current == index ? "bg-primary" : "bg-muted"}`} key={index} onClick={() => handleCarouselChange(index)} />
-        ))}
-      </div>
-    </Carousel>
+    <div className="w-full">
+      <Carousel className="w-full max-w-md mx-auto" setApi={setApi}>
+        <CarouselContent className='h-full w-full'>
+          {images.map((image, index) => (
+            <CarouselItem key={index} className="overflow-hidden">
+              <div className="relative rounded-lg overflow-hidden border-2 border-blue-300/30 shadow-lg">
+                <Image
+                  src={image}
+                  width="750"
+                  height="1060"
+                  alt={`Treasure map page ${index + 1}`}
+                  className="rounded-lg aspect-[1/1.414] object-cover"
+                  priority={index === current}
+                />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <div className="flex gap-2 mt-4 justify-center">
+          {Array.from({ length: images.length }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handleCarouselChange(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${current === index
+                  ? "bg-accent scale-110 shadow-md shadow-accent/50"
+                  : "bg-blue-400/30 hover:bg-blue-400/50"
+                }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </Carousel>
+    </div>
   )
 }
 

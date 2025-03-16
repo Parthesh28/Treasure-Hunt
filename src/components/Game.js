@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetQuestionQuery } from "@/services/queries";
 import { usePostQuestionMutation } from "@/services/mutations";
-import { Header, Footer, SkeletonCard, Type0, Type1, Type2, Type3, Winner, Loser, Error } from "@/components";
+import { Header,  SkeletonCard, Type0, Type1, Type2, Type3, Winner, Loser, Error } from "@/components";
 
 import { Toast } from "@capacitor/toast";
+import { Capacitor } from "@capacitor/core";
 import { Haptics } from "@capacitor/haptics";
 import { NativeAudio } from "@capgo/native-audio";
 
@@ -46,18 +47,23 @@ export default function Game() {
       case 5:
         return <Loser />;
       default:
-        return <Error/>;
+        return <Error />;
     }
   }
 
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      <Header health={data.health} time={data.startTime} />
-      <main className={cn("flex-1 flex flex-col items-center justify-center w-full animate__animated animate__fast", animate)} onAnimationEnd={() => setAnimate("")}>
+      <div className="px-4 py-3 md:px-6 md:py-4">
+        <Header health={data.health} time={data.startTime} />
+      </div>
+      <main className={cn(
+        "flex-1 flex flex-col items-center justify-center w-full animate__animated animate__fast p-4 md:p-6",
+        animate
+      )}
+        onAnimationEnd={() => setAnimate("")}>
         {getComponent({ data, handleSubmit })}
       </main>
-      <Footer />
     </div>
   );
 }

@@ -2,13 +2,13 @@
 
 import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { useWindowSize } from "@/hooks/use-window-size";
-import  {CloudLayer}  from "./cloud-layer";
+import { CloudLayer } from "./cloud-layer";
 import { AnimatedShip } from "./animated-ship";
 
 export default function PirateOceanBackground({
   children,
-  waveColor = "#2a5b7c",
-  waveHighlightColor = "#3a7b9c",
+  waveColor = "#2a6b9c",
+  waveHighlightColor = "#3a8bbc",
   backgroundColor = "#0c1f36",
   shipScale = 0.45,
   mobileShipScale = 0.3,
@@ -26,8 +26,8 @@ export default function PirateOceanBackground({
   const animationParams = useMemo(() => {
     const safeWidth = width || 1000;
     const safeHeight = height || 600;
-    const baseAmplitude = safeHeight * (isMobile ? 0.02 : 0.025);
-    const shipXAmplitude = safeWidth * (isMobile ? 0.04 : 0.06);
+    const baseAmplitude = safeHeight * (isMobile ? 0.025 : 0.03);
+    const shipXAmplitude = safeWidth * (isMobile ? 0.05 : 0.07);
 
     return {
       waves: {
@@ -35,16 +35,16 @@ export default function PirateOceanBackground({
         segments: Math.ceil(safeWidth / 5),
         amplitude: baseAmplitude,
         frequency: 0.01,
-        speed: 0.02,
+        speed: 0.025,
         heightOffset: safeHeight * (isMobile ? 0.7 : 0.6),
-        gerstnerFactor: 0.15,
-        choppiness: 1.5,
+        gerstnerFactor: 0.18,
+        choppiness: 1.8,
       },
       ship: {
         xAmplitude: shipXAmplitude,
         xFrequency: 0.0003,
         yOffset: isMobile ? 120 * effectiveShipScale : 200 * effectiveShipScale,
-        rotationFactor: isMobile ? 0.6 : 0.7,
+        rotationFactor: isMobile ? 0.7 : 0.8,
         sampleDistance: 40,
       },
     };
@@ -106,9 +106,10 @@ export default function PirateOceanBackground({
     ctx.scale(dpr, dpr);
 
     const skyGradient = ctx.createLinearGradient(0, 0, 0, animationParams.waves.heightOffset);
-    skyGradient.addColorStop(0, lightenColor(backgroundColor, 40));
-    skyGradient.addColorStop(0.3, lightenColor(backgroundColor, 20));
-    skyGradient.addColorStop(0.6, lightenColor(backgroundColor, 10));
+    skyGradient.addColorStop(0, lightenColor(backgroundColor, 50));
+    skyGradient.addColorStop(0.2, lightenColor(backgroundColor, 30));
+    skyGradient.addColorStop(0.5, lightenColor(backgroundColor, 15));
+    skyGradient.addColorStop(0.8, lightenColor(backgroundColor, 5));
     skyGradient.addColorStop(1, backgroundColor);
 
     const waveTexture = createWaveTexture();
@@ -180,8 +181,9 @@ export default function PirateOceanBackground({
           .toString(16)
           .padStart(2, "0");
 
-        gradient.addColorStop(0, `${lightenColor(waveHighlightColor, 10)}${alphaHex}`);
-        gradient.addColorStop(0.4, `${waveColor}${alphaHex}`);
+        gradient.addColorStop(0, `${lightenColor(waveHighlightColor, 15)}${alphaHex}`);
+        gradient.addColorStop(0.3, `${lightenColor(waveHighlightColor, 5)}${alphaHex}`);
+        gradient.addColorStop(0.6, `${waveColor}${alphaHex}`);
         gradient.addColorStop(1, `${backgroundColor}${alphaHex}`);
 
         ctx.fillStyle = gradient;
@@ -189,7 +191,7 @@ export default function PirateOceanBackground({
 
         if (waveIndex === 0) {
           ctx.save();
-          ctx.globalAlpha = 0.05;
+          ctx.globalAlpha = 0.08;
           ctx.globalCompositeOperation = "overlay";
 
           const textureOffset = (time * 20) % 256;
@@ -223,8 +225,8 @@ export default function PirateOceanBackground({
       />
 
       <div className="absolute inset-0 pointer-events-none">
-        <CloudLayer count={2} minY={40} maxY={120} baseSpeed={0.12} baseScale={1.2} baseOpacity={0.3} />
-        <CloudLayer count={2} minY={100} maxY={180} baseSpeed={0.2} baseScale={0.9} baseOpacity={0.4} />
+        <CloudLayer count={3} minY={40} maxY={120} baseSpeed={0.12} baseScale={1.2} baseOpacity={0.35} />
+        <CloudLayer count={3} minY={100} maxY={180} baseSpeed={0.2} baseScale={0.9} baseOpacity={0.45} />
       </div>
       <AnimatedShip x={shipPosition.x} y={shipPosition.y} rotation={shipPosition.rotation} scale={effectiveShipScale} />
 

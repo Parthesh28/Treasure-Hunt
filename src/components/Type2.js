@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Button } from "./ui/button";
-import { CarouselUI } from "../components";
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
 import { ScanQrCode } from "lucide-react";
+import HTMLFlipBook from "react-pageflip";
+import Image from "next/image";
 
 export default function Type2({ data, handleSubmit }) {
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const bookRef = useRef(null);
+
   async function readCode() {
     const { ScanResult: answer } = await CapacitorBarcodeScanner.scanBarcode({
       hint: CapacitorBarcodeScannerTypeHint.AZTEC,
@@ -16,19 +21,95 @@ export default function Type2({ data, handleSubmit }) {
     await handleSubmit(answer);
   }
 
+  const handlePageFlip = (e) => {
+    setCurrentPage(e.data);
+  };
+
+  const [dimensions, setDimensions] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 800,
+    height: typeof window !== 'undefined' ? window.innerHeight : 1200
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const bookWidth = dimensions.width > 1200 ? 800 : dimensions.width > 768 ? 650 : dimensions.width * 0.95;
+  const bookHeight = dimensions.height * 0.80;
+
   return (
-    <>
-      <CarouselUI images={data.images} />
-      <div className="fixed bottom-20 right-4 z-50">
+    <div className="relative flex flex-col items-center justify-center w-full h-full px-4 py-6 md:px-6 md:py-8">
+      <div className="relative w-full max-w-4xl mx-auto rounded-lg overflow-hidden shadow-lg">
+        <div className="relative shadow-2xl rounded-md overflow-hidden mb-6">
+          <HTMLFlipBook
+            width={bookWidth}
+            height={Math.min(bookHeight, dimensions.height * 0.95)}
+            size="stretch"
+            minWidth={dimensions.width * 0.9}
+            maxWidth={dimensions.width * 0.98}
+            minHeight={dimensions.height * 0.7}
+            maxHeight={dimensions.height * 0.95}
+            showCover={true}
+            className="mx-auto"
+            onFlip={handlePageFlip}
+            ref={bookRef}
+            flippingTime={1000}
+            usePortrait={true}
+            startPage={0}
+            drawShadow={true}
+            autoSize={true}
+          >
+            {data.images.map((image, index) => (
+              <div key={index} className="relative h-full w-full">
+                <Image
+                  src={image}
+                  alt={`Page ${index + 1}`}
+                  fill
+                  style={{
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                  }}
+                  priority={index <= 2}
+                />
+              </div>
+            ))}
+          </HTMLFlipBook>
+        </div>
+
+        {/* Page indicator dots - Fixed positioning */}
+        <div className="flex gap-2 justify-center mt-2 mb-4">
+          {Array.from({ length: data?.images?.length || 0 }).map((_, index) => (
+            <div
+              key={index}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${currentPage === index
+                  ? "bg-accent scale-125 shadow-md shadow-accent/50"
+                  : "bg-blue-400/30"
+                }`}
+              aria-label={`Page ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Floating Scan QR Code Button */}
+      <div className="fixed bottom-8 right-6 z-50">
         <Button
           onClick={readCode}
           size="icon"
-          className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300 h-14 w-14 rounded-full"
+          className="bg-primary hover:bg-primary/80 text-white h-14 w-14 rounded-full shadow-lg shadow-blue-900/50 transition-all duration-200 ease-in-out transform hover:scale-105 border-2 border-blue-300/30"
         >
           <ScanQrCode className="h-7 w-7" />
-          <span className="sr-only">Add</span>
+          <span className="sr-only">Scan QR Code</span>
         </Button>
       </div>
-    </>
+    </div>
   );
 }

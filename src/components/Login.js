@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
-import { Footer } from "@/components";
 import React, { useState } from "react";
-import { InstagramIcon, MapIcon } from "lucide-react"; // deprecated
+import { MapIcon, Anchor } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLoginMutation } from "@/services/mutations";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { Card, CardContent } from "./ui/card";
 import { Toast } from "@capacitor/toast";
 import { Haptics } from "@capacitor/haptics";
 import { Preferences } from "@capacitor/preferences";
@@ -32,7 +32,6 @@ export default function Login() {
   }
 
   return (
-
     <div className="flex flex-col w-full min-h-screen overflow-hidden relative">
       <main
         className={cn([
@@ -43,43 +42,37 @@ export default function Login() {
           setAnimate(false);
         }}
       >
-        <div className="w-full max-w-md transition-all duration-500">
-          <div className="relative bg-gradient-to-br from-[#ffe9c2] to-[#d4b483] rounded-xl p-8 shadow-2xl overflow-hidden">
-            <div className="absolute inset-0 border-8 border-transparent rounded-xl" style={{
-              boxShadow: 'inset 0 0 30px rgba(139, 69, 19, 0.5)'
-            }}></div>
-
-            <div className="relative flex flex-col items-center z-10">
-              <div className="mb-6 flex items-center justify-center">
-                <div className="relative animate__animated animate__pulse animate__infinite animate__slower">
-                  <MapIcon className="h-16 w-16 text-[#8b4513]" />
-                </div>
+        <Card className="pirate-card treasure-glow max-w-md w-full animate-float">
+          <CardContent className="p-8">
+            <div className="flex flex-col items-center space-y-6">
+              <div className="bg-accent rounded-full p-5 shadow-lg animate-pulse-glow">
+                <MapIcon className="w-12 h-12 text-accent-foreground" strokeWidth={2} />
               </div>
 
               <div className="animate__animated animate__fadeIn w-full">
-                <h1 className="text-2xl font-bold text-[#8b4513] mb-2 text-center">Enter Code</h1>
-                <p className="text-[#8b4513]/80 mb-8 text-center text-sm">
-                  Enter the secret code to claim your bounty!
+                <h1 className="text-2xl font-bold text-blue-100 mb-2 text-center">Enter Secret Code</h1>
+                <p className="text-blue-200 mb-8 text-center text-sm flex items-center justify-center gap-2">
+                  <Anchor className="w-4 h-4" />
+                  <span>Enter the secret code to claim your bounty!</span>
                 </p>
 
                 <div className="flex flex-col relative w-full mb-8 items-center">
                   <InputOTP maxLength={6} onComplete={handleLogin} value={otp} onChange={setOtp}>
-                    <InputOTPGroup >
-                          <InputOTPSlot className="bg-[#ffe9c2] border-[#8b4513]/50 text-[#8b4513] font-bold focus:border-[#e83b3b] focus:ring-[#e83b3b]/30"  index={0} />
-                          <InputOTPSlot className="bg-[#ffe9c2] border-[#8b4513]/50 text-[#8b4513] font-bold focus:border-[#e83b3b] focus:ring-[#e83b3b]/30" index={1} />
-                          <InputOTPSlot className="bg-[#ffe9c2] border-[#8b4513]/50 text-[#8b4513] font-bold focus:border-[#e83b3b] focus:ring-[#e83b3b]/30" index={2} />
-                          <InputOTPSlot className="bg-[#ffe9c2] border-[#8b4513]/50 text-[#8b4513] font-bold focus:border-[#e83b3b] focus:ring-[#e83b3b]/30" index={3} />
-                          <InputOTPSlot className="bg-[#ffe9c2] border-[#8b4513]/50 text-[#8b4513] font-bold focus:border-[#e83b3b] focus:ring-[#e83b3b]/30" index={4} />
-                          <InputOTPSlot className="bg-[#ffe9c2] border-[#8b4513]/50 text-[#8b4513] font-bold focus:border-[#e83b3b] focus:ring-[#e83b3b]/30" index={5} />
-                        </InputOTPGroup>
-                      </InputOTP>
+                    <InputOTPGroup>
+                      <InputOTPSlot className="bg-slate-700/60 border-blue-400/30 text-blue-100 font-bold focus:border-accent focus:ring-accent/30" index={0} />
+                      <InputOTPSlot className="bg-slate-700/60 border-blue-400/30 text-blue-100 font-bold focus:border-accent focus:ring-accent/30" index={1} />
+                      <InputOTPSlot className="bg-slate-700/60 border-blue-400/30 text-blue-100 font-bold focus:border-accent focus:ring-accent/30" index={2} />
+                      <InputOTPSlot className="bg-slate-700/60 border-blue-400/30 text-blue-100 font-bold focus:border-accent focus:ring-accent/30" index={3} />
+                      <InputOTPSlot className="bg-slate-700/60 border-blue-400/30 text-blue-100 font-bold focus:border-accent focus:ring-accent/30" index={4} />
+                      <InputOTPSlot className="bg-slate-700/60 border-blue-400/30 text-blue-100 font-bold focus:border-accent focus:ring-accent/30" index={5} />
+                    </InputOTPGroup>
+                  </InputOTP>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </main>
-      <Footer mapHidden className="relative z-10 bg-transparent text-[#f0c05a]/70" />
     </div>
   );
 }
