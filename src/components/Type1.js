@@ -155,7 +155,7 @@ export default function Type1({ data, handleSubmit, windowSize }) {
   }, [currentPage, isTransitioning]);
 
   return (
-    <div className="fixed bg-black/50 backdrop-blur-md inset-0 w-screen h-screen overflow-hidden" id="map-container">
+    <div className="fixed bg-black/50  inset-0 w-screen h-screen overflow-hidden" id="map-container">
       {/* Map Image */}
       <div
         className="absolute flex p-1 flex-col justify-center inset-0 z-0 transition-all duration-500 ease-out"
@@ -170,18 +170,19 @@ export default function Type1({ data, handleSubmit, windowSize }) {
         }}
       >
         <Image
-          src={data.images[currentPage]}
+          src={`https://pub-893e1c05487c4c8f87860306bfe730f2.r2.dev/${data.story + "/" + data.images[currentPage]}.jpg`}
           alt={`Map ${currentPage + 1}`}
           sizes="100vw"
           width={100}
           height={100}
-          fill
+
+
           style={{
             objectFit: 'cover',
             objectPosition: 'center',
           }}
           priority={true}
-          className="transition-transform duration-300 w-[100vw]"
+          className="transition-transform duration-300 w-[100vw] rounded-lg"
         />
       </div>
 
@@ -214,7 +215,7 @@ export default function Type1({ data, handleSubmit, windowSize }) {
         </Button>
       </div>
 
-      {/* Map indicator dots */}
+      {/* Map indicator dots
       <div className="absolute bottom-16 left-0 right-0 flex gap-2 justify-center flex-wrap z-20">
         {Array.from({ length: data?.images?.length || 0 }).map((_, index) => (
           <button
@@ -228,7 +229,7 @@ export default function Type1({ data, handleSubmit, windowSize }) {
             aria-label={`Go to Map ${index + 1}`}
           />
         ))}
-      </div>
+      </div> */}
 
       {/* Floating Scan QR Code Button */}
       <div className="fixed bottom-8 right-6 z-50">

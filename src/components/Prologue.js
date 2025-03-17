@@ -29,16 +29,26 @@ export default function IntroSlideshow() {
     }, []);
 
     const images = [
-        'https://picsum.photos/id/10/800/1200',
-        'https://picsum.photos/id/11/800/1200',
-        'https://picsum.photos/id/12/800/1200',
-        'https://picsum.photos/id/13/800/1200',
-        'https://picsum.photos/id/14/800/1200',
-        'https://picsum.photos/id/15/800/1200',
-        'https://picsum.photos/id/16/800/1200',
-        'https://picsum.photos/id/17/800/1200',
-        'https://picsum.photos/id/18/800/1200',
-        'https://picsum.photos/id/19/800/1200',
+        '/prologue/1.jpg',
+        '/prologue/2.jpg',
+        '/prologue/3.jpg',
+        '/prologue/4.jpg',
+        '/prologue/5.jpg',
+        '/prologue/6.jpg',
+        '/prologue/7.jpg',
+        '/prologue/8.jpg',
+        '/prologue/9.jpg',
+        '/prologue/10.jpg',
+        '/prologue/11.jpg',
+        '/prologue/12.jpg',
+        '/prologue/13.jpg',
+        '/prologue/14.jpg',
+        '/prologue/15.jpg',
+        '/prologue/16.jpg',
+        '/prologue/17.jpg',
+        '/prologue/18.jpg',
+        '/prologue/19.jpg',
+        '/prologue/20.jpg'
     ];
 
     const nextPage = () => {
@@ -216,7 +226,7 @@ export default function IntroSlideshow() {
                         objectPosition: 'center',
                     }}
                     priority={true}
-                    className="transition-transform duration-300 w-[100vw]"
+                    className="transition-transform duration-300 w-[100vw] rounded-lg"
                 />
             </div>
 

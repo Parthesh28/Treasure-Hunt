@@ -42,21 +42,24 @@ export default function Layout({ children }) {
         assetId: "music",
         assetPath: "assets/sounds/music.mp3",
         audioChannelNum: 1,
-        isUrl: false
+        isUrl: false,
+        volume: 0.3
       });
 
       await NativeAudio.preload({
         assetId: "right",
         assetPath: "assets/sounds/right.mp3",
         audioChannelNum: 1,
-        isUrl: false
+        isUrl: false,
+        volume: 1
       });
 
       await NativeAudio.preload({
         assetId: "wrong",
         assetPath: "assets/sounds/wrong.mp3",
         audioChannelNum: 1,
-        isUrl: false
+        isUrl: false,
+        volume: 1
       });
 
       await NativeAudio.loop({
@@ -65,7 +68,7 @@ export default function Layout({ children }) {
 
       // status bar color matching
       await StatusBar.setBackgroundColor({
-        color: "#265356",
+        color: "#0000ff",
       });
 
       // back button disable

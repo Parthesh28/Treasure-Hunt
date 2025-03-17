@@ -16,7 +16,7 @@ export default function WinnerPrologue() {
         height: typeof window !== 'undefined' ? window.innerHeight : 1200
     });
 
- 
+
 
     useEffect(() => {
         const handleResize = () => {
@@ -31,16 +31,26 @@ export default function WinnerPrologue() {
     }, []);
 
     const images = [
-        'https://picsum.photos/id/10/800/1200',
-        'https://picsum.photos/id/11/800/1200',
-        'https://picsum.photos/id/12/800/1200',
-        'https://picsum.photos/id/13/800/1200',
-        'https://picsum.photos/id/14/800/1200',
-        'https://picsum.photos/id/15/800/1200',
-        'https://picsum.photos/id/16/800/1200',
-        'https://picsum.photos/id/17/800/1200',
-        'https://picsum.photos/id/18/800/1200',
-        'https://picsum.photos/id/19/800/1200',
+        '/conclusion/1.jpg',
+        '/conclusion/2.jpg',
+        '/conclusion/3.jpg',
+        '/conclusion/4.jpg',
+        '/conclusion/5.jpg',
+        '/conclusion/6.jpg',
+        '/conclusion/7.jpg',
+        '/conclusion/8.jpg',
+        '/conclusion/9.jpg',
+        '/conclusion/10.jpg',
+        '/conclusion/11.jpg',
+        '/conclusion/12.jpg',
+        '/conclusion/13.jpg',
+        '/conclusion/14.jpg',
+        '/conclusion/15.jpg',
+        '/conclusion/16.jpg',
+        '/conclusion/17.jpg',
+        '/conclusion/18.jpg',
+        '/conclusion/19.jpg',
+        '/conclusion/20.jpg'
     ];
 
     const nextPage = () => {
@@ -210,7 +220,7 @@ export default function WinnerPrologue() {
                         objectPosition: 'center',
                     }}
                     priority={true}
-                    className="transition-transform duration-300 w-[100vw]"
+                    className="transition-transform duration-300 w-[100vw] rounded-lg"
                 />
             </div>
 

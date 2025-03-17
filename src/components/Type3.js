@@ -38,7 +38,8 @@ function Type3({ data }) {
       <CardContent className="p-6 flex flex-col items-center gap-6">
         <div className="rounded-xl overflow-hidden border-2 border-blue-300/30 shadow-lg animate-pulse-glow">
           <Image
-            src={data.image || "https://picsum.photos/500/500"}
+            // src={data.image || "https://picsum.photos/500/500"}
+            src={`https://pub-893e1c05487c4c8f87860306bfe730f2.r2.dev/${data.story + "/" + data.images[currentPage]}.jpg`}
             width="300"
             height="300"
             alt="Clue"

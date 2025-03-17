@@ -170,7 +170,8 @@ export default function Type2({ data, handleSubmit, windowSize }) {
         }}
       >
         <Image
-          src={data.images[currentPage]}
+          // src={data.images[currentPage]}
+          src={`https://pub-893e1c05487c4c8f87860306bfe730f2.r2.dev/${data.story + "/" + data.images[currentPage]}.jpg`}
           alt={`Map ${currentPage + 1}`}
           sizes="100vw"
           width={100}
@@ -181,7 +182,7 @@ export default function Type2({ data, handleSubmit, windowSize }) {
             objectPosition: 'center',
           }}
           priority={true}
-          className="transition-transform duration-300 w-[100vw]"
+          className="transition-transform duration-300 w-[100vw] rounded-lg"
         />
       </div>
 
