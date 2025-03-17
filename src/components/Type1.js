@@ -1,14 +1,14 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from "@capacitor/barcode-scanner";
-import {  Map, ScanQrCode, SwipeRight } from "lucide-react";
+import { Map, ScanQrCode, ChevronLeft, ChevronRight } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import Image from "next/image";
-import HTMLFlipBook from "react-pageflip";
 
-export default function Type1({ data, handleSubmit }) {
+export default function Type1({ data, handleSubmit, windowSize }) {
   const [currentPage, setCurrentPage] = useState(0);
-  const bookRef = useRef(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [mapRevealPercent, setMapRevealPercent] = useState(100);
 
   async function readCode() {
     const { ScanResult: answer } = await CapacitorBarcodeScanner.scanBarcode({
@@ -17,98 +17,217 @@ export default function Type1({ data, handleSubmit }) {
 
     if (!answer) return;
 
-    // todo: add try-catch for error handling
     await handleSubmit(answer);
   }
 
-  const handlePageFlip = (e) => {
-    setCurrentPage(e.data);
-  };
-
   const nextPage = () => {
-    if (bookRef.current && currentPage < data.images.length - 1) {
-      bookRef.current.pageFlip().flipNext();
-    }
+    if (isTransitioning || currentPage >= data.images.length - 1) return;
+
+    setIsTransitioning(true);
+    setMapRevealPercent(0);
+
+    setTimeout(() => {
+      setCurrentPage(prev => prev + 1);
+
+      // Animate the reveal of the new map
+      const revealAnimation = setInterval(() => {
+        setMapRevealPercent(prev => {
+          if (prev >= 100) {
+            clearInterval(revealAnimation);
+            setIsTransitioning(false);
+            return 100;
+          }
+          return prev + 5;
+        });
+      }, 20);
+    }, 300);
   };
 
   const prevPage = () => {
-    if (bookRef.current && currentPage > 0) {
-      bookRef.current.pageFlip().flipPrev();
-    }
+    if (isTransitioning || currentPage <= 0) return;
+
+    setIsTransitioning(true);
+    setMapRevealPercent(0);
+
+    setTimeout(() => {
+      setCurrentPage(prev => prev - 1);
+
+      // Animate the reveal of the new map
+      const revealAnimation = setInterval(() => {
+        setMapRevealPercent(prev => {
+          if (prev >= 100) {
+            clearInterval(revealAnimation);
+            setIsTransitioning(false);
+            return 100;
+          }
+          return prev + 5;
+        });
+      }, 20);
+    }, 300);
   };
 
-  const [dimensions, setDimensions] = useState({
-    width: typeof window !== 'undefined' ? window.innerWidth : 800,
-    height: typeof window !== 'undefined' ? window.innerHeight : 1200
-  });
+  const goToPage = (index) => {
+    if (isTransitioning || index === currentPage) return;
 
+    setIsTransitioning(true);
+    setMapRevealPercent(0);
+
+    setTimeout(() => {
+      setCurrentPage(index);
+
+      // Animate the reveal of the new map
+      const revealAnimation = setInterval(() => {
+        setMapRevealPercent(prev => {
+          if (prev >= 100) {
+            clearInterval(revealAnimation);
+            setIsTransitioning(false);
+            return 100;
+          }
+          return prev + 5;
+        });
+      }, 20);
+    }, 300);
+  };
+
+  const calculateA4Dimensions = () => {
+    // Use full screen dimensions with no margin
+    const screenWidth = windowSize?.width || window.innerWidth || 1200;
+    const screenHeight = windowSize?.height || window.innerHeight || 800;
+
+    return { width: screenWidth, height: screenHeight };
+  };
+
+  const a4Dimensions = calculateA4Dimensions();
+
+  // Handle keyboard navigation
   useEffect(() => {
-    const handleResize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowRight') {
+        nextPage();
+      } else if (e.key === 'ArrowLeft') {
+        prevPage();
+      }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentPage, isTransitioning]);
 
-  const bookWidth = dimensions.width > 1200 ? 800 : dimensions.width > 768 ? 650 : dimensions.width * 0.95;
-  const bookHeight = dimensions.height * 0.80;
+  // Handle swipe gestures
+  useEffect(() => {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const handleTouchStart = (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    };
+
+    const handleTouchEnd = (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    };
+
+    const handleSwipe = () => {
+      const swipeThreshold = 50;
+      if (touchEndX < touchStartX - swipeThreshold) {
+        // Swipe left, go to next page
+        nextPage();
+      } else if (touchEndX > touchStartX + swipeThreshold) {
+        // Swipe right, go to previous page
+        prevPage();
+      }
+    };
+
+    const mapElement = document.getElementById('map-container');
+    if (mapElement) {
+      mapElement.addEventListener('touchstart', handleTouchStart, { passive: true });
+      mapElement.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+
+    return () => {
+      if (mapElement) {
+        mapElement.removeEventListener('touchstart', handleTouchStart);
+        mapElement.removeEventListener('touchend', handleTouchEnd);
+      }
+    };
+  }, [currentPage, isTransitioning]);
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full h-full px-4 py-6 md:px-6 md:py-8">
-      <div className="relative w-full max-w-4xl mx-auto rounded-lg overflow-hidden">
-        <div className="relative shadow-2xl rounded-md overflow-hidden mb-6">
-          <HTMLFlipBook
-            width={bookWidth}
-            height={Math.min(bookHeight, dimensions.height * 0.95)}
-            size="stretch"
-            minWidth={dimensions.width * 0.9}
-            maxWidth={dimensions.width * 0.98}
-            minHeight={dimensions.height * 0.7}
-            maxHeight={dimensions.height * 0.95}
-            showCover={true}
-            className="mx-auto"
-            onFlip={handlePageFlip}
-            ref={bookRef}
-            flippingTime={1000}
-            usePortrait={true}
-            startPage={0}
-            drawShadow={true}
-            autoSize={true}
-          >
-            {data.images.map((image, index) => (
-              <div key={index} className="relative h-full w-full">
-                <Image
-                  src={image}
-                  alt={`Page ${index + 1}`}
-                  fill
-                  style={{
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                  }}
-                  priority={index <= 2}
-                />
-              </div>
-            ))}
-          </HTMLFlipBook>    
+    <div className="fixed bg-black/50 backdrop-blur-md inset-0 w-screen h-screen overflow-hidden" id="map-container">
+      {/* Map Image */}
+      <div
+        className="absolute flex p-1 flex-col justify-center inset-0 z-0 transition-all duration-500 ease-out"
+        style={{
+          clipPath: `polygon(
+            0% 0%, 
+            ${mapRevealPercent}% 0%, 
+            ${mapRevealPercent}% 100%, 
+            0% 100%
+          )`,
+          boxShadow: isTransitioning ? '5px 0 15px rgba(0,0,0,0.3)' : 'none'
+        }}
+      >
+        <Image
+          src={data.images[currentPage]}
+          alt={`Map ${currentPage + 1}`}
+          sizes="100vw"
+          width={100}
+          height={100}
+          fill
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
+          priority={true}
+          className="transition-transform duration-300 w-[100vw]"
+        />
+      </div>
+
+      {/* Navigation buttons */}
+      <div className="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-4 z-10">
+        <Button
+          onClick={prevPage}
+          disabled={currentPage === 0 || isTransitioning}
+          className={`rounded-full p-2 ${currentPage === 0 || isTransitioning ? 'bg-slate-700/50 text-slate-400' : 'bg-amber-800/80 hover:bg-amber-700/80 text-amber-100'
+            } transition-all duration-200 map-button`}
+          size="icon"
+        >
+          <ChevronLeft className="h-6 w-6" />
+          <span className="sr-only">Previous Map</span>
+        </Button>
+
+        <div className="text-center text-amber-100/90 text-sm font-bold bg-amber-900/50 px-3 py-1 rounded-full">
+          Image {currentPage + 1} of {data?.images?.length || 0}
         </div>
 
-        {/* Page indicator dots - Fixed positioning */}
-        <div className="flex gap-2 justify-center mt-2 mb-4">
-          {Array.from({ length: data?.images?.length || 0 }).map((_, index) => (
-            <div
-              key={index}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${currentPage === index
-                  ? "bg-accent scale-125 shadow-md shadow-accent/50"
-                  : "bg-blue-400/30"
-                }`}
-              aria-label={`Page ${index + 1}`}
-            />
-          ))}
-        </div>
+        <Button
+          onClick={nextPage}
+          disabled={currentPage === data.images.length - 1 || isTransitioning}
+          className={`rounded-full p-2 ${currentPage === data.images.length - 1 || isTransitioning ? 'bg-slate-700/50 text-slate-400' : 'bg-amber-800/80 hover:bg-amber-700/80 text-amber-100'
+            } transition-all duration-200 map-button`}
+          size="icon"
+        >
+          <ChevronRight className="h-6 w-6" />
+          <span className="sr-only">Next Map</span>
+        </Button>
+      </div>
+
+      {/* Map indicator dots */}
+      <div className="absolute bottom-16 left-0 right-0 flex gap-2 justify-center flex-wrap z-20">
+        {Array.from({ length: data?.images?.length || 0 }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToPage(index)}
+            disabled={isTransitioning}
+            className={`w-3 h-3 rounded-full transition-all duration-300 m-1 ${currentPage === index
+              ? "bg-amber-500 scale-125 shadow-md shadow-amber-500/50"
+              : "bg-amber-700/30 hover:bg-amber-700/50"
+              }`}
+            aria-label={`Go to Map ${index + 1}`}
+          />
+        ))}
       </div>
 
       {/* Floating Scan QR Code Button */}
@@ -116,7 +235,7 @@ export default function Type1({ data, handleSubmit }) {
         <Button
           onClick={readCode}
           size="icon"
-          className="bg-primary hover:bg-primary/80 text-white h-14 w-14 rounded-full shadow-lg shadow-blue-900/50 transition-all duration-200 ease-in-out transform hover:scale-105 border-2 border-blue-300/30"
+          className="bg-primary hover:bg-primary/80 text-white h-14 w-14 rounded-full shadow-lg shadow-blue-900/50 transition-all duration-200 ease-in-out transform hover:scale-105 border-2 border-blue-300/30 animate-pulse-glow"
         >
           <ScanQrCode className="h-7 w-7" />
           <span className="sr-only">Scan QR Code</span>
@@ -129,7 +248,7 @@ export default function Type1({ data, handleSubmit }) {
           <div className="fixed bottom-8 left-6 z-50">
             <Button
               size="icon"
-              className="bg-accent hover:bg-accent/80 text-accent-foreground h-14 w-14 rounded-full shadow-lg shadow-amber-900/50 transition-all duration-200 ease-in-out transform hover:scale-105 border-2 border-amber-300/30"
+              className="bg-accent hover:bg-accent/80 text-accent-foreground h-14 w-14 rounded-full shadow-lg shadow-amber-900/50 transition-all duration-200 ease-in-out transform hover:scale-105 border-2 border-amber-300/30 animate-pulse-glow"
             >
               <Map className="h-7 w-7" />
               <span className="sr-only">View Map</span>
@@ -138,16 +257,20 @@ export default function Type1({ data, handleSubmit }) {
         </DialogTrigger>
         <DialogContent className="pirate-dialog overflow-hidden max-w-md w-[90vw]">
           <DialogHeader>
-            <DialogTitle className="text-blue-100 font-bold text-xl">Treasure Map</DialogTitle>
+            <DialogTitle className="text-blue-100 font-bold text-xl flex items-center gap-2">
+              <Map className="w-5 h-5 text-accent" />
+              Treasure Map
+            </DialogTitle>
             <DialogDescription className="text-blue-200">Navigate your journey through the seven seas</DialogDescription>
           </DialogHeader>
           <div className="relative overflow-hidden rounded-lg border-2 border-amber-600/30 shadow-inner animate-pulse-glow">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-amber-900/30 z-10"></div>
             <Image
               src="/map.png"
               alt="Map of the treasure"
               width={500}
               height={400}
-              className="w-full h-auto rounded-md object-cover"
+              className="w-full h-auto rounded-md object-cover transition-transform duration-500 hover:scale-110"
               priority={true}
             />
           </div>

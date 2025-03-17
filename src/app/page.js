@@ -6,6 +6,7 @@ import { SkeletonCard } from "@/components";
 import { useLoginQuery } from "@/services/queries";
 import IntroSlideshow from "@/components/Prologue";
 import { cn } from "@/lib/utils";
+import WinnerPrologue from "@/components/Winner-Prologue";
 
 export default function Page() {
 

@@ -51,7 +51,7 @@ body {
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
-  
+  overflow-x: hidden;
 }
 
 .react-transform-wrapper {
@@ -70,6 +70,7 @@ body {
   border-radius: 50%;
   overflow: hidden;
   font-family: var(--font-mono);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
 }
 
 /* Custom utility classes */
@@ -78,19 +79,19 @@ body {
 }
 
 .pirate-button {
-  @apply bg-primary hover:bg-primary/80 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-blue-900/50 transition-all duration-200 ease-in-out transform hover:scale-105 border-2 border-blue-300/30;
+  @apply bg-primary hover:bg-primary/80 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-blue-900/50 transition-all duration-200 ease-in-out transform hover:scale-105 border-2 border-blue-300/30 focus:ring-4 focus:ring-primary/50 focus:outline-none;
 }
 
 .pirate-input {
-  @apply w-full bg-slate-700/60 backdrop-blur-xl text-white py-3 px-4 rounded-lg border border-blue-400/30 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-blue-200/50;
+  @apply w-full bg-slate-700/60 backdrop-blur-xl text-white py-3 px-4 rounded-lg border border-blue-400/30 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-blue-200/50 shadow-inner;
 }
 
 .pirate-header {
-  @apply flex items-center bg-slate-800/70 backdrop-blur-md rounded-full shadow-md justify-between;
+  @apply flex items-center bg-slate-800/70 backdrop-blur-md rounded-full shadow-md justify-between border border-blue-400/20;
 }
 
 .pirate-dialog {
-  @apply rounded-xl bg-cyan-950 border-2 border-blue-300/40 shadow-xl shadow-blue-900/30;
+  @apply rounded-xl bg-cyan-950 border-2 border-blue-300/40 shadow-xl shadow-blue-900/30 backdrop-blur-xl;
 }
 
 .treasure-glow {
@@ -137,4 +138,289 @@ body {
 
 .animate-pulse-glow {
   animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* New animations and styles */
+@keyframes wave {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+
+  75% {
+    transform: translateY(5px) rotate(1deg);
+  }
+}
+
+.animate-wave {
+  animation: wave 8s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Carousel animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.carousel-slide-enter {
+  opacity: 0;
+}
+
+.carousel-slide-enter-active {
+  opacity: 1;
+  transition: opacity 300ms, transform 300ms;
+}
+
+.carousel-slide-exit {
+  opacity: 1;
+}
+
+.carousel-slide-exit-active {
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Enhanced UI components */
+.glass-panel {
+  @apply bg-slate-800/60 backdrop-blur-xl border border-blue-400/30 rounded-xl shadow-lg;
+}
+
+.treasure-button {
+  @apply bg-accent hover:bg-accent/80 text-accent-foreground font-bold py-3 px-8 rounded-full shadow-lg shadow-amber-900/50 transition-all duration-200 ease-in-out transform hover:scale-105 border-2 border-amber-300/30 focus:ring-4 focus:ring-accent/50 focus:outline-none;
+}
+
+/* Improved health bar styling */
+.health-bar {
+  @apply w-full h-4 rounded-full bg-slate-700/80 overflow-hidden border border-blue-400/20 shadow-inner relative;
+  min-width: 80px;
+}
+
+.health-bar-fill {
+  @apply h-full rounded-full transition-all duration-300 shadow-inner relative;
+  min-width: 5%;
+}
+
+.health-bar-fill::after {
+  content: '';
+  @apply absolute inset-0 bg-white/10;
+  background-image: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.page-transition {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Image carousel styling */
+#image-carousel,
+#image-carousel-type2 {
+  @apply relative shadow-2xl rounded-lg overflow-hidden;
+}
+
+#image-carousel img,
+#image-carousel-type2 img {
+  @apply transition-transform duration-300;
+}
+
+#image-carousel:hover img,
+#image-carousel-type2:hover img {
+  @apply scale-[1.02];
+}
+
+.carousel-nav-button {
+  @apply opacity-70 hover:opacity-100 transition-opacity duration-200;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .health-bar {
+    @apply h-3;
+  }
+
+  .pirate-header {
+    @apply px-2;
+  }
+
+  .carousel-nav-button {
+    @apply scale-75;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-800/50 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/70 rounded-full hover:bg-primary;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
+}
+
+/* A4 page styling for flipbook */
+.react-pageflip {
+  touch-action: none;
+}
+
+.page-cover {
+  background-color: hsl(var(--card));
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.page {
+  background-color: white;
+  border-radius: 0 4px 4px 0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* A4 page styling */
+.a4-container {
+  @apply rounded-lg overflow-hidden shadow-xl;
+  aspect-ratio: 1 / 1.414;
+  max-height: 80vh;
+  margin: 0 auto;
+}
+
+/* Map styling for Type1 and Type2 components */
+.map-container {
+  @apply relative shadow-2xl rounded-md overflow-hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.map-image {
+  @apply transition-transform duration-300;
+  transform-origin: left center;
+}
+
+.map-container:hover .map-image {
+  @apply scale-[1.02];
+}
+
+.map-button {
+  @apply opacity-80 hover:opacity-100 transition-opacity duration-200;
+}
+
+.map-fold-lines {
+  background-image:
+    linear-gradient(to right, rgba(139, 69, 19, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(139, 69, 19, 0.1) 1px, transparent 1px);
+  background-size: 20% 25%;
+  opacity: 0.5;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Responsive adjustments for maps */
+@media (max-width: 640px) {
+  .map-button {
+    @apply scale-75;
+  }
+
+  .map-fold-lines {
+    background-size: 15% 20%;
+  }
 }

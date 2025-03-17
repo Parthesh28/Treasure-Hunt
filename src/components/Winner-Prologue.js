@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { X, Map, ChevronLeft, ChevronRight } from 'lucide-react';
 import Login from './Login';
 import { Button } from './ui/button';
-
-export default function IntroSlideshow() {
+import Winner from './Winner';
+export default function WinnerPrologue() {
     const [currentPage, setCurrentPage] = useState(0);
     const [showSlideshow, setShowSlideshow] = useState(true);
     const [exitAnimation, setExitAnimation] = useState(false);
@@ -15,6 +15,8 @@ export default function IntroSlideshow() {
         width: typeof window !== 'undefined' ? window.innerWidth : 800,
         height: typeof window !== 'undefined' ? window.innerHeight : 1200
     });
+
+ 
 
     useEffect(() => {
         const handleResize = () => {
@@ -176,20 +178,12 @@ export default function IntroSlideshow() {
         return <Login />;
     }
 
+    if (currentPage === 9) {
+        return <Winner />
+    }
+
     return (
         <div className={`fixed bg-black inset-0 w-screen h-screen overflow-hidden transition-opacity duration-500 ${exitAnimation ? 'opacity-0' : 'opacity-100'}`} id="prologue-container">
-            {/* Skip button - Positioned at top-right corner */}
-            <div className="absolute top-3 right-3 z-50">
-                <Button
-                    onClick={handleSkip}
-                    size="sm"
-                    variant="ghost"
-                    className="bg-slate-800/60 hover:bg-primary/80 text-white hover:text-white rounded-full h-8 px-3 flex items-center gap-1 transition-all duration-200 backdrop-blur-sm shadow-md"
-                >
-                    <span className="text-xs font-medium">Skip</span>
-                    <X className="h-3 w-3" />
-                </Button>
-            </div>
 
             {/* Map Image */}
             <div
