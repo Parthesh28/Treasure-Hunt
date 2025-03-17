@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 import { useEffect, useState } from "react";
 import { Grandstander, Special_Elite } from "next/font/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,7 +12,7 @@ import { NativeAudio } from "@capgo/native-audio"
 import { StatusBar } from "@capacitor/status-bar";
 
 import "./globals.css";
-import PirateOceanBackground from "@/components/pirate-ocean-background";
+import PirateOceanBackground from "../components/pirate-ocean-background";
 
 const fontHeading = Grandstander({
   weight: "400",

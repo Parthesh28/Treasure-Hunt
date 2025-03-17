@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { Game, Header, Login, Type0, Type1, Type2, Type3, Winner } from "../components";
-import { SkeletonCard } from "@/components";
-import { useLoginQuery } from "@/services/queries";
-import IntroSlideshow from "@/components/Prologue";
-import { cn } from "@/lib/utils";
-import WinnerPrologue from "@/components/conclusion";
+import { Game, Header, Login, Type0, Type1, Type2, Type3, Winner, SkeletonCard } from "../components";
+import { useLoginQuery } from "../services/queries";
+import IntroSlideshow from "../components/Prologue";
+import { cn } from "../lib/utils";
+import WinnerPrologue from "../components/conclusion";
 
 export default function Page() {
 
@@ -22,6 +21,6 @@ export default function Page() {
 
   // error states maybe (not in db)
 
-  return <Game/>
+  return <Game />
 
 }

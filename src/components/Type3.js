@@ -3,7 +3,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import React, { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { usePostQuestionMutation } from "@/services/mutations";
+import { usePostQuestionMutation } from "../services/mutations";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 import { Toast } from "@capacitor/toast";

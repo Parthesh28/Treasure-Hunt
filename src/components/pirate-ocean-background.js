@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo, useCallback } from "react";
-import { useWindowSize } from "@/hooks/use-window-size";
+import { useWindowSize } from "../hooks/use-window-size";
 import { CloudLayer } from "./cloud-layer";
 import { AnimatedShip } from "./animated-ship";
 

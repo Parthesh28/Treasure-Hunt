@@ -1,11 +1,11 @@
-import { ClockIcon } from "@/icons";
+import { ClockIcon } from "../icons";
 import { Ship, Scroll, AlertTriangle } from "lucide-react";
 import Countdown from "react-countdown";
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 import React, { useState, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useRestoreHealthMutation } from "@/services/mutations";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { useRestoreHealthMutation } from "../services/mutations";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
 
 import { Toast } from "@capacitor/toast";
 import { Capacitor } from "@capacitor/core";

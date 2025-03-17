@@ -1,5 +1,5 @@
 import { Button } from "./ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "./ui/skeleton";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Compass } from "lucide-react";
 

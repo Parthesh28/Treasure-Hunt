@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useState, useEffect } from 'react';
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 
 function CarouselUI({ images = [] }) {
   const [api, setApi] = useState(null);
@@ -43,8 +43,8 @@ function CarouselUI({ images = [] }) {
               key={index}
               onClick={() => handleCarouselChange(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${current === index
-                  ? "bg-accent scale-110 shadow-md shadow-accent/50"
-                  : "bg-blue-400/30 hover:bg-blue-400/50"
+                ? "bg-accent scale-110 shadow-md shadow-accent/50"
+                : "bg-blue-400/30 hover:bg-blue-400/50"
                 }`}
               aria-label={`Go to slide ${index + 1}`}
             />

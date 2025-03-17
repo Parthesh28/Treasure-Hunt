@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 import React, { useState, useEffect } from "react";
 import { MapIcon, Anchor, Compass, Key } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useLoginMutation } from "@/services/mutations";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { useLoginMutation } from "../services/mutations";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Toast } from "@capacitor/toast";

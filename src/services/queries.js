@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "@/lib/utils";
+import { API_URL } from "../lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Preferences } from "@capacitor/preferences";
 

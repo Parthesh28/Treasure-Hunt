@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 import React, { useState, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useGetQuestionQuery } from "@/services/queries";
-import { usePostQuestionMutation } from "@/services/mutations";
-import { Header, SkeletonCard, Type0, Type1, Type2, Type3, Winner, Loser, Error } from "@/components";
+import { useGetQuestionQuery } from "../services/queries";
+import { usePostQuestionMutation } from "../services/mutations";
+import { Header, SkeletonCard, Type0, Type1, Type2, Type3, Winner, Loser, Error } from ".";
 
 import { Toast } from "@capacitor/toast";
 import { Capacitor } from "@capacitor/core";
