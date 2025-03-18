@@ -1,70 +1,33 @@
-import Image from "next/image";
-import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import React, { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import { usePostQuestionMutation } from "../services/mutations";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-import { Toast } from "@capacitor/toast";
-import { Haptics } from "@capacitor/haptics";
-
-function Type3({ data }) {
-  const queryClient = useQueryClient();
+function Type0({ data, handleSubmit }) {
   const [answer, setAnswer] = useState("");
-  const mutation = usePostQuestionMutation();
-
-  async function handleSubmit() {
-    if (!answer) return;
-
-    mutation.mutate({ answer }, {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
-      },
-      onError: async (error) => {
-        await Haptics.vibrate({ duration: 600 });
-        await Toast.show({ text: error.response.data.message });
-      }
-    });
-  }
 
   return (
-    <Card className="pirate-card treasure-glow max-w-md animate-float">
-      <CardHeader className="p-4 border-b border-blue-300/30">
-        <CardTitle className="text-xl font-bold text-blue-100 text-center">
-          Solve the Riddle
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6 flex flex-col items-center gap-6">
-        <div className="rounded-xl overflow-hidden border-2 border-blue-300/30 shadow-lg animate-pulse-glow">
-          <Image
-            // src={data.image || "https://picsum.photos/500/500"}
-            src={`https://pub-893e1c05487c4c8f87860306bfe730f2.r2.dev/${data.story + "/" + data.images[currentPage]}.jpg`}
-            width="300"
-            height="300"
-            alt="Clue"
-            className="aspect-square object-cover"
-            priority={true}
-          />
-        </div>
-        <div className="w-full">
-          <Input
-            placeholder="Answer"
-            className="pirate-input"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value.toLowerCase())}
-          />
-        </div>
-        <Button
-          className="pirate-button"
-          onClick={handleSubmit}
-          disabled={!answer}
-        >
-          Check
-        </Button>
-      </CardContent>
-    </Card>
+    <div className="flex flex-col items-center justify-center h-screen w-screen">
+      <Card className="pirate-card treasure-glow max-w-md animate-float">
+        <CardContent className="p-6">
+          <div className="relative">
+            <input
+              placeholder="Answer"
+              className="pirate-input"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value.toLowerCase())}
+            />
+          </div>
+        </CardContent>
+      </Card>
+      <Button
+        className="pirate-button mt-4"
+        onClick={() => handleSubmit(answer)}
+        disabled={!answer}
+      >
+        Check
+      </Button>
+    </div>
   );
 }
 
-export default Type3;
+export default Type0;
