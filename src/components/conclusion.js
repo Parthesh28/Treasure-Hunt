@@ -50,7 +50,8 @@ export default function WinnerPrologue() {
         '/conclusion/17.jpg',
         '/conclusion/18.jpg',
         '/conclusion/19.jpg',
-        '/conclusion/20.jpg'
+        '/conclusion/20.jpg',
+        "/END.png"
     ];
 
     const nextPage = () => {
@@ -188,7 +189,7 @@ export default function WinnerPrologue() {
         return <Login />;
     }
 
-    if (currentPage === 9) {
+    if (currentPage === 20) {
         return <Winner />
     }
 
@@ -238,7 +239,7 @@ export default function WinnerPrologue() {
                 </Button>
 
                 <div className="text-center text-amber-100/90 text-sm font-bold bg-amber-900/50 px-3 py-1 rounded-full">
-                    Page {currentPage + 1} of {images.length}
+                    Page {currentPage + 1} of {images.length - 1}
                 </div>
 
                 <Button

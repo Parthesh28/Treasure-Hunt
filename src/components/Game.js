@@ -9,6 +9,7 @@ import { Toast } from "@capacitor/toast";
 import { Capacitor } from "@capacitor/core";
 import { Haptics } from "@capacitor/haptics";
 import { NativeAudio } from "@capgo/native-audio";
+import WinnerPrologue from "./conclusion";
 
 export default function Game() {
   const [animate, setAnimate] = useState("animate__fadeInRight");
@@ -61,7 +62,7 @@ export default function Game() {
   if (isError) {
     switch (error.response.data.type) {
       case 4:
-        return <Winner />;
+        return <WinnerPrologue />;
       case 5:
         return <Loser />;
       default:
