@@ -30,4 +30,4 @@ function Type4({ data, handleSubmit }) {
   );
 }
 
-export default Type3;
+export default Type4;
