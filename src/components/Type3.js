@@ -2,7 +2,7 @@ import { Button } from "./ui/button";
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-function Type0({ data, handleSubmit }) {
+function Type3({ data, handleSubmit }) {
   const [answer, setAnswer] = useState("");
 
   return (
@@ -30,4 +30,4 @@ function Type0({ data, handleSubmit }) {
   );
 }
 
-export default Type0;
+export default Type3;
