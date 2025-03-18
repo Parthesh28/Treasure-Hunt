@@ -21,8 +21,6 @@ export default function Game() {
   const queryClient = useQueryClient();
   const mutation = usePostQuestionMutation();
 
-  console.log(data);
-
   // Update window size on resize
   useEffect(() => {
     const handleResize = () => {
