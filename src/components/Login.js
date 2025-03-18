@@ -83,7 +83,7 @@ export default function Login() {
                         <InputOTPSlot
                           key={index}
                           index={index}
-                          className="bg-slate-700/60 backdrop-blur-md border-blue-400/30 text-blue-100 font-bold focus:border-accent focus:ring-accent/30 h-12 w-12 text-xl transition-all duration-200"
+                          className="bg-slate-700/60 backdrop-blur-md  border-blue-400/30 text-blue-100 font-bold focus:border-accent focus:ring-accent/30 h-10 w-10 text-xl transition-all duration-200"
                         />
                       ))}
                     </InputOTPGroup>
