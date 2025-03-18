@@ -49,6 +49,7 @@ export default function Game() {
         if (Capacitor.getPlatform() != "web") await NativeAudio.play({ assetId: "wrong" });
         await Haptics.vibrate({ duration: 600 });
         await Toast.show({ text: error.response.data.message });
+        await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
       }
     });
   }

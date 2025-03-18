@@ -68,7 +68,7 @@ export default function Layout({ children }) {
 
       // status bar color matching
       await StatusBar.setBackgroundColor({
-        color: "#0000ff",
+        color: "#798aa1",
       });
 
       // back button disable

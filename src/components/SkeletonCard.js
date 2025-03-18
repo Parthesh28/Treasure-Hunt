@@ -16,13 +16,11 @@ export default function SkeletonCard() {
       <div className="px-4 py-3 md:px-6 md:py-4 relative z-10">
         <header className="pirate-header">
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 px-4 py-2 bg-slate-700/50 rounded-full border border-blue-300/20">
-              <Skeleton className="h-5 w-5 rounded-full bg-blue-400/20 animate-pulse" />
+            <div className="flex items-center gap-2 px-4 py-2 bg-slate-700/50 rounded-full ">
               <Skeleton className="h-4 w-16 bg-blue-400/20 animate-pulse" />
             </div>
           </div>
           <div className="flex items-center gap-3 px-4 py-2">
-            <Skeleton className="h-6 w-6 rounded-full bg-blue-400/20 animate-pulse" />
             <div className="health-bar w-28">
               <div className="h-full w-3/4 rounded-full bg-blue-500/30 animate-shimmer relative">
                 <div className="absolute inset-0 animate-shimmer"></div>
