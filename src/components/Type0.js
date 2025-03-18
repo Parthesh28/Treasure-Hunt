@@ -6,7 +6,7 @@ function Type0({ data, handleSubmit }) {
   const [answer, setAnswer] = useState("");
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-screen">
+    <div className="flex flex-col items-center justify-center h-screen w-screen pr-4">
       <Card className="pirate-card treasure-glow max-w-md animate-float">
         <CardHeader className="p-4 border-b border-blue-300/30">
           <CardTitle className="text-xl font-bold text-blue-100 text-center">

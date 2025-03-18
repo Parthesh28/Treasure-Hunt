@@ -121,7 +121,7 @@ function Header({ time, health }) {
                 <Ship className="w-4 h-4 text-blue-300" />
                 Ship Health
               </h3>
-              <p className="text-blue-200 text-sm">Your ship's health decreases over time. Scan coupons to restore health and keep sailing! But be careful—scanning the wrong coupon will also decrease your health!</p>
+              <p className="text-blue-200 text-sm">Your ship's health decreases over time. Scan coupons to restore health and keep sailing! But be careful—scanning the wrong qr will also decrease your health!</p>
             </div>
 
             <div className="glass-panel p-4 rounded-lg">
