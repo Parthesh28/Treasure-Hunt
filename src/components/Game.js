@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetQuestionQuery } from "../services/queries";
 import { usePostQuestionMutation } from "../services/mutations";
-import { Header, SkeletonCard, Type0, Type1, Type2, Type3, Winner, Loser, Error } from ".";
+import { Header, SkeletonCard, Type0, Type1, Type2, Type3, Type4, Winner, Loser, Error } from ".";
 
 import { Toast } from "@capacitor/toast";
 import { Capacitor } from "@capacitor/core";
@@ -105,6 +105,8 @@ function getComponent(props) {
       return <Type2 {...props} />;
     case 3:
       return <Type3 {...props} />;
+    case 4:
+      return <Type4 {...props} />;
     default:
       return <div className="text-center p-4 sm:p-6 glass-panel rounded-xl">
         <h2 className="text-xl font-bold text-blue-100 mb-4">Unknown Question Type</h2>

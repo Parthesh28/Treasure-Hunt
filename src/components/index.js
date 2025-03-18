@@ -1,4 +1,5 @@
 import Game from "./Game";
+import Type4 from "./Type4";
 import Type3 from "./Type3";
 import Type0 from "./Type0";
 import Login from "./Login";
@@ -11,4 +12,4 @@ import Error from "./Error";
 import CarouselUI from "./CarouselUI";
 import SkeletonCard from './SkeletonCard';
 
-export { Header, SkeletonCard, Type0, Type1, Type2, Type3, Game, Login, Winner, Loser, CarouselUI, Error }
+export { Header, SkeletonCard, Type0, Type1, Type2, Type3, Type4, Game, Login, Winner, Loser, CarouselUI, Error }
