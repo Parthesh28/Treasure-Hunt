@@ -201,7 +201,7 @@ export default function Type1({ data, handleSubmit, windowSize }) {
         </Button>
 
         <div className="text-center text-amber-100/90 text-sm font-bold bg-amber-900/50 px-3 py-1 rounded-full">
-          Image {currentPage + 1} of {data?.images?.length || 0}
+          {currentPage + 1} of {data?.images?.length || 0}
         </div>
 
         <Button

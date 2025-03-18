@@ -230,7 +230,7 @@ export default function PirateOceanBackground({
       </div>
       <AnimatedShip x={shipPosition.x} y={shipPosition.y} rotation={shipPosition.rotation} scale={effectiveShipScale} />
 
-      <div className="relative z-10 w-full h-full p-4 sm:p-6 md:p-8 lg:p-12">{children}</div>
+      <div className="relative z-10 w-full h-full p-0">{children}</div>
     </div>
   );
 }

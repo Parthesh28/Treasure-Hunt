@@ -71,12 +71,12 @@ export default function Game() {
   }
 
   return (
-    <div className="flex flex-col w-full min-h-screen">
+    <div className="flex flex-col  w-full min-h-screen">
       <div className="px-2 z-50 sm:px-4 py-2 sm:py-3 md:px-6 md:py-4 animate__animated animate__fadeIn animate__faster">
         <Header health={data.health} time={new Date(data.startTime).getTime()} />
       </div>
       <main className={cn(
-        "flex-1 flex flex-col items-center justify-center w-full animate__animated animate__fast p-2 sm:p-4 md:p-6",
+        "flex-1 flex fixed flex-col items-center justify-center w-full animate__animated animate__fast p-2 sm:p-4 md:p-6",
         animate
       )}
         onAnimationEnd={() => setAnimate("")}>
