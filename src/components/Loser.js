@@ -1,10 +1,15 @@
 import React from "react";
 import Link from "next/link";
-import { Card } from "./ui/card";
+import { Card, CardFooter } from "./ui/card";
 import { HeartCrack, Anchor, Ship, CloudRain, Waves } from "lucide-react";
 import "animate.css";
 
 function Loser({ data }) {
+  const handleLogout = async () => {
+    localStorage.clear();
+    // await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
+    window.location.reload();
+  }
   return (
     <div className="flex flex-col w-full min-h-screen">
       {/* Decorative elements */}
@@ -59,6 +64,14 @@ function Loser({ data }) {
               <p className="text-blue-200 text-center text-sm">Your ship has sunk beneath the waves. The treasure remains hidden, waiting for the next brave crew to find it.</p>
             </div>
           </div>
+          <CardFooter className='flex justify-center' >
+            <Button
+              className="pirate-button mt-4"
+              onClick={handleLogout}
+            >
+              Escape
+            </Button>
+          </CardFooter>
         </Card>
       </main>
     </div>

@@ -62,7 +62,7 @@ export default function Game() {
   if (isError) {
     switch (error.response.data.type) {
       case 4:
-        return <WinnerPrologue />;
+        return <WinnerPrologue data={error.response.data} />;
       case 5:
         return <Loser />;
       default:

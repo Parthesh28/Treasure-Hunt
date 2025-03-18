@@ -1,11 +1,25 @@
 import React from "react";
 import Link from "next/link";
-import { Card } from "./ui/card";
-import { Award, Anchor, Trophy, Star, Sparkles } from "lucide-react";
+import { Card, CardFooter } from "./ui/card";
+import { Award, Anchor, Trophy, Star, Sparkles, Clock } from "lucide-react";
 import Image from "next/image";
 import "animate.css";
+import { Button } from "./ui/button";
+import { useQueryClient } from "@tanstack/react-query";
 
 function Winner({ data }) {
+  const finalTime = new Date(data.endTime) - new Date(data.startTime);
+  const minutesDifference = Math.floor(finalTime / 1000 / 60);
+  const secondsDifference = Math.floor((finalTime - minutesDifference * 60000) / 1000)
+  const queryClient = useQueryClient();
+
+  const handleLogout = async () => {
+    localStorage.clear();
+    // await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
+    window.location.reload();
+  }
+
+
   return (
     <div className="flex flex-col w-full min-h-screen">
       {/* Decorative elements */}
@@ -34,7 +48,7 @@ function Winner({ data }) {
       </div>
 
       <main className="flex-1 flex flex-col items-center justify-center gap-8 px-4 py-8 animate__animated animate__fadeIn animate__slow relative z-20">
-    
+
 
         <Card className="pirate-card treasure-glow max-w-md w-full animate-float relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-accent/10 to-transparent z-0"></div>
@@ -45,12 +59,12 @@ function Winner({ data }) {
             </div>
 
             <h2 className="text-3xl font-bold tracking-widest text-blue-100 text-center animate__animated animate__fadeInUp">
-              Team Apex, You Won!
+              Team {data.name} You Won!
             </h2>
 
             <div className="flex items-center gap-2 text-blue-200 animate__animated animate__fadeInUp animate__delay-1s">
-              <Anchor className="w-5 h-5 text-blue-300" />
-              <p className="text-lg">Time Taken: </p>
+              <Clock className="w-5 h-5 text-blue-300" />
+              <p className="text-lg">Time Taken: {minutesDifference}:{secondsDifference} </p>
             </div>
 
             <div className="w-full bg-slate-800/50 rounded-lg p-4 border border-accent/30 animate__animated animate__fadeInUp animate__delay-2s">
@@ -61,6 +75,14 @@ function Winner({ data }) {
               <p className="text-blue-200 text-center text-sm">You've successfully navigated the seven seas and found the hidden treasure. The captain is proud!</p>
             </div>
           </div>
+          <CardFooter className='flex justify-center' >
+            <Button
+              className="pirate-button mt-4"
+              onClick={handleLogout}
+            >
+              Escape
+            </Button>
+          </CardFooter>
         </Card>
       </main>
     </div>

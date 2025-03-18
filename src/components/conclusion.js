@@ -5,8 +5,8 @@ import { X, Map, ChevronLeft, ChevronRight } from 'lucide-react';
 import Login from './Login';
 import { Button } from './ui/button';
 import Winner from './Winner';
-export default function WinnerPrologue() {
-    const [currentPage, setCurrentPage] = useState(0);
+export default function WinnerPrologue({data}) {
+    const [currentPage, setCurrentPage] = useState(20);
     const [showSlideshow, setShowSlideshow] = useState(true);
     const [exitAnimation, setExitAnimation] = useState(false);
     const [isTransitioning, setIsTransitioning] = useState(false);
@@ -190,7 +190,7 @@ export default function WinnerPrologue() {
     }
 
     if (currentPage === 20) {
-        return <Winner />
+        return <Winner data={data}/>
     }
 
     return (
