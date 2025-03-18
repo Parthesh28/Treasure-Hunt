@@ -6,7 +6,7 @@ import Login from './Login';
 import { Button } from './ui/button';
 import Winner from './Winner';
 export default function WinnerPrologue({data}) {
-    const [currentPage, setCurrentPage] = useState(20);
+    const [currentPage, setCurrentPage] = useState(0);
     const [showSlideshow, setShowSlideshow] = useState(true);
     const [exitAnimation, setExitAnimation] = useState(false);
     const [isTransitioning, setIsTransitioning] = useState(false);

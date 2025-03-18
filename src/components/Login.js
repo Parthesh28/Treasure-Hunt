@@ -73,7 +73,7 @@ export default function Login() {
                 <h1 className="text-2xl font-bold text-blue-100 mb-2 text-center">Enter Secret Code</h1>
                 <p className="text-blue-200 mb-8 text-center text-sm flex items-center justify-center gap-2">
                   <Anchor className="w-4 h-4 text-blue-300" />
-                  <span>Enter the secret code to claim your bounty!</span>
+                  <span>Enter the secret code given by the captain!</span>
                 </p>
 
                 <div className="flex flex-col relative w-full mb-8 items-center">
@@ -102,10 +102,6 @@ export default function Login() {
             </div>
           </CardContent>
         </Card>
-
-        <div className="mt-8 text-blue-300/70 text-sm text-center animate__animated animate__fadeIn animate__delay-1s">
-          <p>Find the secret code hidden in the treasure map</p>
-        </div>
       </main>
     </div>
   );
