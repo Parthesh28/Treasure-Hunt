@@ -6,6 +6,7 @@ import Image from "next/image";
 import "animate.css";
 import { Button } from "./ui/button";
 import { useQueryClient } from "@tanstack/react-query";
+import { Preferences } from "@capacitor/preferences";
 
 function Winner({ data }) {
   const finalTime = new Date(data.endTime) - new Date(data.startTime);
@@ -14,11 +15,9 @@ function Winner({ data }) {
   const queryClient = useQueryClient();
 
   const handleLogout = async () => {
-    localStorage.clear();
-    // await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
+    await Preferences.remove({ key: "token" });
     window.location.reload();
   }
-
 
   return (
     <div className="flex flex-col w-full min-h-screen">

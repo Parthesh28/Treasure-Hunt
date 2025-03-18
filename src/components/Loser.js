@@ -3,13 +3,14 @@ import Link from "next/link";
 import { Card, CardFooter } from "./ui/card";
 import { HeartCrack, Anchor, Ship, CloudRain, Waves } from "lucide-react";
 import "animate.css";
+import { Preferences } from "@capacitor/preferences";
 
 function Loser({ data }) {
   const handleLogout = async () => {
-    localStorage.clear();
-    // await queryClient.invalidateQueries({ queryKey: ["getQuestion"] });
+    await Preferences.remove({ key: "token" });
     window.location.reload();
   }
+
   return (
     <div className="flex flex-col w-full min-h-screen">
       {/* Decorative elements */}
