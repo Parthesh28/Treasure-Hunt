@@ -17,6 +17,7 @@ export default function Type2({ data, handleSubmit, windowSize }) {
     if (!answer) return;
 
     await handleSubmit(answer);
+    setCurrentPage(0);
   }
 
   const nextPage = () => {
@@ -155,7 +156,7 @@ export default function Type2({ data, handleSubmit, windowSize }) {
   }, [currentPage, isTransitioning]);
 
   return (
-    <div className="fixed bg-black/50 backdrop-blur-md inset-0 w-screen h-screen overflow-hidden" id="map-container-type2">
+    <div className="fixed bg-black/50  inset-0 w-screen h-screen overflow-hidden" id="map-container-type2">
       {/* Map Image */}
       <div
         className="absolute flex p-1 flex-col justify-center inset-0 z-0 transition-all duration-500 ease-out"

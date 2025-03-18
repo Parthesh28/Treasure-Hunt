@@ -18,6 +18,7 @@ export default function Type1({ data, handleSubmit, windowSize }) {
     if (!answer) return;
 
     await handleSubmit(answer);
+    setCurrentPage(0);
   }
 
   const nextPage = () => {
