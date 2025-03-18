@@ -226,7 +226,7 @@ export default function IntroSlideshow() {
                         objectPosition: 'center',
                     }}
                     priority={true}
-                    className="transition-transform duration-300 w-[100vw] rounded-lg"
+                    className="transition-transform duration-300 w-[100vw] rounded-sm"
                 />
             </div>
 

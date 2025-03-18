@@ -50,7 +50,7 @@ function Winner({ data }) {
 
             <div className="flex items-center gap-2 text-blue-200 animate__animated animate__fadeInUp animate__delay-1s">
               <Anchor className="w-5 h-5 text-blue-300" />
-              <p className="text-lg">Time Taken: 23:45</p>
+              <p className="text-lg">Time Taken: </p>
             </div>
 
             <div className="w-full bg-slate-800/50 rounded-lg p-4 border border-accent/30 animate__animated animate__fadeInUp animate__delay-2s">
